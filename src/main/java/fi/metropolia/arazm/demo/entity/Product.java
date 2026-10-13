@@ -1,7 +1,5 @@
 package fi.metropolia.arazm.demo.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.Column;
 import jakarta.persistence.Convert;
 import jakarta.persistence.Entity;
@@ -10,8 +8,6 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.JoinTable;
-import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
@@ -48,16 +44,8 @@ public class Product {
     @JoinColumn(name = "supplier_id")
     private Supplier supplier;
 
-    //@ManyToMany(fetch = FetchType.LAZY)
-    //@JoinTable(
-    //    name = "OrderItems",
-    //    joinColumns = @JoinColumn(name = "product_id"),
-    //    inverseJoinColumns = @JoinColumn(name = "order_id")
-    //)
-    //@JsonIgnoreProperties("products")
-    //private Set<Orders> orders = new HashSet<>();
+
     @OneToMany(mappedBy = "product")
-    @JsonIgnore
     private Set<OrderItem> orderItems = new HashSet<>();
 
     public Product() {}
