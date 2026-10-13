@@ -15,7 +15,7 @@ import fi.metropolia.arazm.demo.entity.Orders;
 import fi.metropolia.arazm.demo.repository.OrdersRepository;
 
 @RestController 
-@RequestMapping("/api/orders")
+@RequestMapping("/apiOLD/orders")
 public class OrdersController {
 
     private final OrdersRepository repository;
