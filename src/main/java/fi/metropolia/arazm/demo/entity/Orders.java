@@ -1,12 +1,8 @@
 package fi.metropolia.arazm.demo.entity;
 
-import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -16,7 +12,6 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.PrePersist;
@@ -48,22 +43,16 @@ public class Orders {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "shipping_address_id")
-    @JsonIgnoreProperties("orders")
     private CustomerAddresses shippingAddressID;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "customer_id")
-    @JsonIgnoreProperties("orders")
     private Customer customer;
 
     @OneToMany(mappedBy = "orders", cascade = CascadeType.ALL, orphanRemoval = true)
-    @JsonIgnore
     private Set<OrderItem> orderItems = new HashSet<>();
 
-    //@ManyToMany(mappedBy = "orders", fetch = FetchType.LAZY)
-    //@JsonIgnoreProperties("orders")
-    //private Set<Product> products = new HashSet<>();
-   
+
     public Orders(){}
 
     public Orders(Customer customer, LocalDateTime orderDate, LocalDateTime deliveryDate, CustomerAddresses shippingAddressID, String status) {
