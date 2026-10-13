@@ -1,5 +1,7 @@
 package fi.metropolia.arazm.demo.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -20,7 +22,7 @@ public class CustomerAddresses {
     @Column(name = "street_address")
     private String streetAddress;
 
-    @Column(name = "post_code")
+    @Column(name = "postal_code")
     private String postalCode;
 
     @Column(name = "city")
@@ -31,6 +33,7 @@ public class CustomerAddresses {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "customer_id")
+    @JsonIgnoreProperties("addresses")
     private Customer customer;
 
     public CustomerAddresses(){}
