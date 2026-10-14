@@ -1,84 +1,65 @@
 package fi.metropolia.arazm.demo.controller;
 
-import fi.metropolia.arazm.demo.entity.Product;
-import fi.metropolia.arazm.demo.repository.ProductRepository;
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.PersistenceContext;
-import jakarta.persistence.criteria.CriteriaBuilder;
-import jakarta.persistence.criteria.CriteriaQuery;
-import jakarta.persistence.criteria.Predicate;
-import jakarta.persistence.criteria.Root;
+import java.util.List;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.List;
+import fi.metropolia.arazm.demo.dto.ProductDTO;
+import fi.metropolia.arazm.demo.dto.ProductRequest;
+import fi.metropolia.arazm.demo.service.ProductService;
+import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/api/products")
 public class ProductController {
 
-    private final ProductRepository productRepository;
+    private final ProductService service;
 
-    public ProductController(ProductRepository productRepository) {
-        this.productRepository = productRepository;
+    public ProductController(ProductService service) {
+        this.service = service;
     }
 
     @GetMapping
-    public List<Product> getAll() {
-        return productRepository.findAll();
+    public List<ProductDTO> getAll() {
+        return service.getAll();
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Product> getById(@PathVariable Integer id) {
-        return productRepository.findById(id)
-                .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
+    public ProductDTO getById(@PathVariable Integer id) {
+        return service.getById(id);
     }
 
     @PostMapping
-    public Product create(@RequestBody Product product) {
-        return productRepository.save(product);
+    @ResponseStatus(HttpStatus.CREATED)
+    public ProductDTO create(@Valid @RequestBody ProductRequest req) {
+        return service.create(req);
+    }
+
+    @PutMapping("/{id}")
+    public ProductDTO update(@PathVariable Integer id, @Valid @RequestBody ProductRequest req) {
+        return service.update(id, req);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> delete(@PathVariable Integer id) {
-        if (!productRepository.existsById(id)) {
-            return ResponseEntity.notFound().build();
-        }
-        productRepository.deleteById(id);
-        return ResponseEntity.noContent().build();
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void delete(@PathVariable Integer id) {
+        service.delete(id);
     }
 
-    @PersistenceContext
-    private EntityManager entityManager;
+    // JPQL mass update
+    //@PutMapping("/update-prices")
+    //public ResponseEntity<String> updatePrices(@RequestParam Integer categoryId,
+    //                                           @RequestParam Double multiplier) {
+    //    int updatedCount = service.updatePrices(categoryId, multiplier);
+    //    return ResponseEntity.ok("Päivitetty " + updatedCount + " tuotteen hinnat.");
+    //}
 
-    //JPQL Mass update
-    @PutMapping("/update-prices")
-    public ResponseEntity<String> updatePrices(@RequestParam Integer categoryId, @RequestParam Double multiplier) {
-        int updatedCount = productRepository.updatePricesByCategory(categoryId, multiplier);
-        return ResponseEntity.ok("Päivitetty " + updatedCount + " tuotteen hinnat.");
-    }
-
-    //Criteria API Dynamic search
-    @GetMapping("/search")
-    public List<Product> searchProducts(@RequestParam(required = false) Double minPrice,
-                                       @RequestParam(required = false) Integer categoryId) {
-        CriteriaBuilder cb = entityManager.getCriteriaBuilder();
-        CriteriaQuery<Product> query = cb.createQuery(Product.class);
-        Root<Product> product = query.from(Product.class);
-
-        List<Predicate> predicates = new ArrayList<>();
-
-        if (minPrice != null) {
-            predicates.add(cb.greaterThanOrEqualTo(product.get("price"), minPrice));
-        }
-        if (categoryId != null) {
-            predicates.add(cb.equal(product.get("productCategory").get("id"), categoryId));
-        }
-
-        query.where(predicates.toArray(new Predicate[0]));
-        return entityManager.createQuery(query).getResultList();
-    }
+    // Criteria API dynamic search
+    //@GetMapping("/search")
+    //public List<ProductDTO> search(@RequestParam(required = false) Double minPrice,
+    //                               @RequestParam(required = false) Integer categoryId) {
+    //    return service.search(minPrice, categoryId);
+    //}
 }

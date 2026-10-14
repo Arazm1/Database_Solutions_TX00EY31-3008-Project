@@ -31,6 +31,10 @@ public class Supplier {
     @Column(name = "email")
     private String email;
 
+    @OneToOne(mappedBy = "supplier", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonIgnoreProperties("supplier")
+    private SupplierAddress supplierAddress;
+
     public Supplier(){}
 
     public Supplier(String name, String contactName, String phone, String email){
@@ -60,9 +64,9 @@ public class Supplier {
         return this.email;
     }
 
-    @OneToOne(mappedBy = "supplier", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JsonIgnoreProperties("supplier")
-    private SupplierAddress supplierAddress;
+    public SupplierAddress getSupplierAddress(){
+        return this.supplierAddress;
+    }
 
 
     public void setId(Integer id) {
