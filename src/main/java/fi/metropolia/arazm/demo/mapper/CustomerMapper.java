@@ -2,9 +2,9 @@ package fi.metropolia.arazm.demo.mapper;
 
 import java.util.List;
 
-import fi.metropolia.arazm.demo.dto.CustomerDTO;
 import fi.metropolia.arazm.demo.dto.OrderDto;
 import fi.metropolia.arazm.demo.dto.OrderItemDto;
+import fi.metropolia.arazm.demo.dto.Customer.CustomerDTO;
 import fi.metropolia.arazm.demo.entity.Customer;
 import fi.metropolia.arazm.demo.entity.OrderItem;
 import fi.metropolia.arazm.demo.entity.Orders;
