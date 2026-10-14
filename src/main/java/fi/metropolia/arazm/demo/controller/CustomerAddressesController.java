@@ -1,8 +1,10 @@
 package fi.metropolia.arazm.demo.controller;
 
+import fi.metropolia.arazm.demo.dto.AddressDTO;
 import fi.metropolia.arazm.demo.entity.CustomerAddresses;
 import fi.metropolia.arazm.demo.repository.CustomerAddressesRepository;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -17,22 +19,34 @@ public class CustomerAddressesController {
         this.repository = repository;
     }
 
-    /**
-     * GET /api/addresses
-     * Fetch all addresses
-     */
-    @GetMapping
-    public List<CustomerAddresses> getAllAddresses() {
-        return repository.findAll();
+
+    private AddressDTO toDto(CustomerAddresses address) {
+        return new AddressDTO(
+                address.getId(),
+                address.getStreetAddress(),
+                address.getPostalCode(),
+                address.getCity(),
+                address.getCountry(),
+                address.getCustomer() == null
+                        ? null : address.getCustomer().getId()
+        );
     }
 
-    /**
-     * GET /api/addresses/{id}
-     * Fetch address by ID
-     */
+
+    @GetMapping 
+    @Transactional(readOnly = true)
+    public List<AddressDTO> getAllAddresses(){
+        return repository.findAll().stream()
+                .map(this::toDto)
+                .toList();
+    }
+
+
     @GetMapping("/{id}")
-    public ResponseEntity<CustomerAddresses> getAddressById(@PathVariable Integer id) {
+    @Transactional(readOnly = true)
+    public ResponseEntity<AddressDTO> getAddressById(@PathVariable Integer id) {
         return repository.findById(id)
+                .map(this::toDto)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
@@ -42,17 +56,20 @@ public class CustomerAddressesController {
      * Fetch all addresses for a specific customer
      */
     @GetMapping("/customer/{customerId}")
-    public List<CustomerAddresses> getAddressesByCustomerId(@PathVariable Integer customerId) {
-        return repository.findByCustomerId(customerId);
+    public List<AddressDTO> getAddressesByCustomerId(@PathVariable Integer customerId) {
+        return repository.findByCustomerId(customerId).stream()
+                    .map(this::toDto)
+                    .toList();
     }
 
     /**
      * POST /api/addresses
      * Create a new address
      */
-    @PostMapping
-    public CustomerAddresses createAddress(@RequestBody CustomerAddresses address) {
-        return repository.save(address);
+    @PostMapping 
+    public AddressDTO createAddress(@RequestBody CustomerAddresses address) {
+        CustomerAddresses saved = repository.save(address);
+        return toDto(saved);
     }
 
     /**
