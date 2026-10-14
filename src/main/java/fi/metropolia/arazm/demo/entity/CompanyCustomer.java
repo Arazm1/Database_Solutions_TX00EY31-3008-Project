@@ -4,7 +4,7 @@ import jakarta.persistence.Column;
 import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
 
-@Entity
+//@Entity
 @DiscriminatorValue("COMPANY")
 public class CompanyCustomer extends Customer {
 
