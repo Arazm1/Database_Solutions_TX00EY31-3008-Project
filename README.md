@@ -13,10 +13,10 @@ Working:
 - http://localhost:8080/api/orders/
 - http://localhost:8080/api/suppliers
 - http://localhost:8080/api/supplier-addresses
+- http://localhost:8080/api/categories
 
 
 The ones above are quite slow as they fetch the whole table.
 
 
 Dont work:
-- http://localhost:8080/api/categories
