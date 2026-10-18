@@ -1,4 +1,4 @@
-package fi.metropolia.arazm.demo.dto;
+package fi.metropolia.arazm.demo.dto.Order;
 
 public record OrderItemDto(
         Integer productId,

@@ -3,11 +3,13 @@ package fi.metropolia.arazm.demo.service;
 import java.time.LocalDateTime;
 import java.util.List;
 
+
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import fi.metropolia.arazm.demo.dto.CreateOrderRequest;
-import fi.metropolia.arazm.demo.dto.OrderDto;
+import fi.metropolia.arazm.demo.dto.Order.CreateOrderRequest;
+import fi.metropolia.arazm.demo.dto.Order.OrderDto;
+import fi.metropolia.arazm.demo.dto.Order.OrderPageDTO;
 import fi.metropolia.arazm.demo.entity.Customer;
 import fi.metropolia.arazm.demo.entity.CustomerAddresses;
 import fi.metropolia.arazm.demo.entity.Orders;
@@ -17,6 +19,10 @@ import fi.metropolia.arazm.demo.repository.CustomerAddressesRepository;
 import fi.metropolia.arazm.demo.repository.CustomerRepository;
 import fi.metropolia.arazm.demo.repository.OrdersRepository;
 import fi.metropolia.arazm.demo.repository.ProductRepository;
+
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 
 @Service
 public class OrderService {
@@ -47,6 +53,29 @@ public class OrderService {
                 .orElseThrow(() -> new RuntimeException("Order not found: " + id));
         return mapper.toDto(order);   // mapped while the session is open
     }
+
+
+    @Transactional(readOnly = true)
+    public OrderPageDTO getPagedOrders(int page, int size){
+        Pageable pageable = PageRequest.of(page, size);
+
+        Page<Orders> orderPage = ordersRepository.findAll(pageable);
+
+        List<OrderDto> orders = orderPage.getContent()
+                        .stream()
+                        .map(mapper::toDto)
+                        .toList();
+
+
+        return new OrderPageDTO(
+            orders,
+            orderPage.getNumber(),
+            orderPage.getSize(),
+            orderPage.getTotalElements(),
+            orderPage.getTotalPages()
+        );
+    }
+
 
     @Transactional(readOnly = true)
     public List<OrderDto> getAllOrders() {

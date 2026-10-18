@@ -2,7 +2,7 @@ package fi.metropolia.arazm.demo.dto.Customer;
 
 import java.util.List;
 
-import fi.metropolia.arazm.demo.dto.OrderDto;
+import fi.metropolia.arazm.demo.dto.Order.OrderDto;
 
 public record CustomerDTO(
     Integer id,
