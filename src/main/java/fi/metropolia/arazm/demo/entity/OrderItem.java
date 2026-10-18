@@ -1,7 +1,5 @@
 package fi.metropolia.arazm.demo.entity;
 
-import java.math.BigDecimal;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
@@ -24,7 +22,7 @@ public class OrderItem {
     private Orders orders;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @MapsId("productId") // Maps to productId field in OrderItemId
+    @MapsId("productId")
     @JoinColumn(name = "product_id")
     private Product product;
     
@@ -41,7 +39,6 @@ public class OrderItem {
         this.product = product;
         this.quantity = quantity;
         this.unitPrice = unitPrice;
-        //this.id = new OrderItemId(order.getId(), product.getId());
     }
 
     
