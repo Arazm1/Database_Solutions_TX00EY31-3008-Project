@@ -9,6 +9,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 import fi.metropolia.arazm.demo.dto.ProductDTO;
 import fi.metropolia.arazm.demo.dto.ProductRequest;
+import fi.metropolia.arazm.demo.dto.Product.ProductPageResponse;
 import fi.metropolia.arazm.demo.entity.Product;
 import fi.metropolia.arazm.demo.entity.ProductCategory;
 import fi.metropolia.arazm.demo.entity.Supplier;
@@ -16,6 +17,10 @@ import fi.metropolia.arazm.demo.mapper.ProductMapper;
 import fi.metropolia.arazm.demo.repository.ProductCategoryRepository;
 import fi.metropolia.arazm.demo.repository.ProductRepository;
 import fi.metropolia.arazm.demo.repository.SupplierRepository;
+
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 
 @Service
 public class ProductService {
@@ -38,6 +43,32 @@ public class ProductService {
     @Transactional(readOnly = true)
     public List<ProductDTO> getAll() {
         return productRepository.findAll().stream().map(mapper::toDto).toList();
+    }
+
+    /**
+     * Retrieves products in pages instead of loading all the products at once.
+     * @param page the page number. Starting from 0.
+     * @param size of the number of products per page.
+     * @return products and pagination information
+     */
+    @Transactional(readOnly = true)
+    public ProductPageResponse getAllPaged(int page, int size){
+
+        Pageable pageable = PageRequest.of(page, size);
+        Page<Product> productPage = productRepository.findAll(pageable);
+
+        List<ProductDTO> products = productPage.getContent()
+                                        .stream()
+                                        .map(mapper::toDto)
+                                        .toList();
+
+        return new ProductPageResponse(
+            products,
+            productPage.getNumber(),
+            productPage.getSize(),
+            productPage.getTotalElements(),
+            productPage.getTotalPages()
+        );
     }
 
     @Transactional(readOnly = true)

@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.*;
 
 import fi.metropolia.arazm.demo.dto.ProductDTO;
 import fi.metropolia.arazm.demo.dto.ProductRequest;
+import fi.metropolia.arazm.demo.dto.Product.ProductPageResponse;
 import fi.metropolia.arazm.demo.service.ProductService;
 import jakarta.validation.Valid;
 
@@ -23,6 +24,14 @@ public class ProductController {
     @GetMapping
     public List<ProductDTO> getAll() {
         return service.getAll();
+    }
+
+    @GetMapping("/paged")
+    public ProductPageResponse getAllPaged(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "20") int size) {
+
+        return service.getAllPaged(page, size);
     }
 
     @GetMapping("/{id}")
