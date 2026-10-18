@@ -2,6 +2,9 @@ package fi.metropolia.arazm.demo.controller;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -9,6 +12,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import fi.metropolia.arazm.demo.dto.Customer.CustomerAllDTO;
@@ -44,37 +48,32 @@ public class CustomerController {
                 .toList();
     }
     
-    /*
-    
-    @GetMapping
+
+
+    /**
+     * GET /api/customer/optimized
+     * Fetch customers in pages to avoid loading entire customer table at once.
+     * 
+     * @param page the page of number, starting from 0.
+     * @param size the number of customers returned per page.
+     * @return a page of customer DTOs.
+     */
+    @GetMapping("/optimized")
     @Transactional(readOnly = true)
-    public List<CustomerDTO> getAllCustomers() {
-        return repository.findAll().stream()
-                .map(CustomerMapper::toDto)
-                .toList();
+    public Page<CustomerAllDTO> getAllCustomersOptimized(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "20") int size){
+        
+        Pageable pageable = PageRequest.of(page, size);
+
+        return repository.findAll(pageable).map(customer -> new CustomerAllDTO(
+            customer.getId(),
+            customer.getFirstName(),
+            customer.getLastName(),
+            customer.getEmail(),
+            customer.getPhone()
+        ));
     }
-                 
 
-    @GetMapping
-    @Transactional(readOnly = true)
-    public List<CustomerDTO> getAllCustomers() {
 
-        List<Customer> customers = repository.findAll();
-
-        System.out.println(">>> CUSTOMERS FOUND: " + customers.size());
-
-        return customers.stream()
-                .map(customer -> new CustomerDTO(
-                        customer.getId(),
-                        customer.getFirstName(),
-                        customer.getLastName(),
-                        customer.getEmail(),
-                        customer.getPhone(),
-                        List.of()
-                ))
-                .toList();
-    }
-                */
 
     // GET yhteen asiakkaaseen: GET /api/customers/1
     @GetMapping("/{id}")
