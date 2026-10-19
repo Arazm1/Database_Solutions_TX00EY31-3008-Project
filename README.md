@@ -51,6 +51,7 @@ Postman — API testing
 ## 3. Installation and Setup
 
 **Prerequisites**
+
 Before you can run the application you must install:
 * Java 21
 * MariaDB server
