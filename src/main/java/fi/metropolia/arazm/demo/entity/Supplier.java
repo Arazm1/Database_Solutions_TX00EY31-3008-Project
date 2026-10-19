@@ -10,6 +10,9 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 
 @Entity
 @Table(name = "suppliers")
@@ -19,15 +22,21 @@ public class Supplier {
     private Integer id;
 
     @Column(name = "name")
+    @NotBlank
+    @Size(max = 255)
     private String name;
 
     @Column(name = "contact_name")
+    @Size(max = 100)
     private String contactName;
 
     @Column(name = "phone")
+    @Size(max = 30)
     private String phone;
 
     @Column(name = "email")
+    @Email
+    @Size(max = 255)
     private String email;
 
     @OneToOne(mappedBy = "supplier", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
