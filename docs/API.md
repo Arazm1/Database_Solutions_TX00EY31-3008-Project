@@ -9,9 +9,8 @@
 5. [Orders](#orders)
 6. [Addresses](#addresses)
 7. [Categories](#categories)
-
-
-8. [Error Responses](#error-responses)
+8. [Supplier Addresses](#supplier-addresses)
+9. [Error Responses](#error-responses)
 
 ---
 
@@ -609,10 +608,7 @@ The order status is initially set to `NEW`.
 ### PUT Update Category
 
 **Endpoint:**
-`PUT /api/categories/{id}`
-
-**Example:**
-`PUT /api/categories/3`
+* `PUT /api/categories/{id}`
 
 **Content-Type:**
 `application/json`
@@ -644,7 +640,113 @@ The order status is initially set to `NEW`.
 
 
 
-## 6. Error Responses
+
+
+## 8. Supplier Addresses
+
+### GET All Supplier Addresses
+
+**Endpoint:**
+* `GET /api/supplier-addresses`
+
+**Request Body:** None.
+
+---
+
+### GET Supplier Address by ID
+
+**Endpoint:**
+* `GET /api/supplier-addresses/{id}`
+
+
+**Request Body:** None.
+
+**Responses:**
+- `200 OK` — supplier address found.
+- `404 Not Found` — supplier address does not exist.
+
+---
+
+### POST Create Supplier Address
+
+**Endpoint:**
+* `POST /api/supplier-addresses`
+
+**Content-Type:**
+`application/json`
+
+**Request Body:**
+```json id="a1b2c3"
+{
+  "streetAddress": "Hamngatan 12",
+  "postalCode": "211 22",
+  "city": "Malmö",
+  "country": "Sweden",
+  "supplier": {
+    "id": 17
+  }
+}
+```
+
+**Fields:**
+- `streetAddress` — street address.
+- `postalCode` — postal code.
+- `city` — city.
+- `country` — country.
+- `supplier.id` — ID of the associated supplier.
+
+---
+
+
+### Update Supplier Address
+
+Updates an existing supplier address.
+
+**Endpoint:** 
+* `PUT /api/supplier-addresses/{id}`
+
+**Path parameter:**
+- `id` - ID of the supplier address to update.
+
+**Request body:**
+
+```json
+{
+  "streetAddress": "Hamngatan 25",
+  "postalCode": "211 22",
+  "city": "Malmö",
+  "country": "Sweden"
+}
+```
+
+**Success response:** `200 OK`
+
+Returns the updated supplier address.
+
+**Error responses:**
+- `404 Not Found` — No supplier address exists with the specified ID.
+
+The update changes the address fields while preserving the existing address ID and supplier relationship.
+
+---
+
+
+
+### DELETE Supplier Address
+
+**Endpoint:**
+`DELETE /api/supplier-addresses/{id}`
+
+
+**Request Body:** None.
+
+**Responses:**
+- `204 No Content` — supplier address deleted successfully.
+- `404 Not Found` — supplier address does not exist.
+
+
+
+## 9. Error Responses
 
 ### 400 Bad Request
 
