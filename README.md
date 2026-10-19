@@ -185,14 +185,14 @@ In addition to indexing, pagination is used to optimize database performance—e
 
 By applying page-based limits (translated to SQL `LIMIT` and `OFFSET` clauses), the database only scans, retrieves, and serializes a small subset of records at a time, drastically reducing resource consumption and improving response times.
 
-Example of Customers Endpoint with Pagination
+**Example of Customers Endpoint with Pagination**
 
 * **Default (First 20 customers):**
-  `GET /api/customer/paged`
+    - `GET /api/customer/paged`
 * **Next page (20 customers):**
-  `GET /api/customer/paged?page=1&size=20`
+    - `GET /api/customer/paged?page=1&size=20`
 * **Custom page size (50 customers):**
-  `GET /api/customer/paged?page=0&size=50`
+    - `GET /api/customer/paged?page=0&size=50`
 
 
 
