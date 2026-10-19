@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
 
-import fi.metropolia.arazm.demo.dto.Order.CreateOrderRequest;
+import fi.metropolia.arazm.demo.dto.Order.OrderRequest;
 import fi.metropolia.arazm.demo.dto.Order.OrderDto;
 import fi.metropolia.arazm.demo.dto.Order.OrderPageDTO;
 import fi.metropolia.arazm.demo.entity.Customer;
@@ -86,7 +86,7 @@ public class OrderService {
     }
 
     @Transactional
-    public OrderDto createOrder(CreateOrderRequest req) {
+    public OrderDto createOrder(OrderRequest req) {
         Customer customer = customerRepository.findById(req.customerId())
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Customer not found " + req.customerId()));
         CustomerAddresses address = addressRepository.findById(req.shippingAddressId())
@@ -94,7 +94,7 @@ public class OrderService {
 
         Orders order = new Orders(customer, LocalDateTime.now(), null, address, OrderStatus.NEW);
 
-        for (CreateOrderRequest.Item item : req.items()) {
+        for (OrderRequest.Item item : req.items()) {
             Product product = productRepository.findById(item.productId())
                     .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Product not found: " + item.productId()));
             order.addItem(product, item.quantity(), product.getPrice());
