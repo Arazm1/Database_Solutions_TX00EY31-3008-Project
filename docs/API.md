@@ -93,15 +93,6 @@ Requested Body:
 * `DELETE /api/products/{id}`
 
 
-### GET Product by Category
-
-**Endpoint:**
-TODOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
-
-
-
-
-
 
 
 ---

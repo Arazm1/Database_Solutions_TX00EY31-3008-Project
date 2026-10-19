@@ -89,6 +89,7 @@ public class ProductService {
         apply(p, req);
         return mapper.toDto(p);   // dirty checking saves the changes at commit
     }
+    
 
     @Transactional
     public void delete(Integer id) {
