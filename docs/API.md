@@ -268,7 +268,7 @@ None.
 **Request Body:**
 ```json
 {
-  "name": "Nordic Supplies Oy",
+  "companyName": "Nordic Supplies Oy",
   "contactName": "Matti Meikäläinen",
   "phone": "+358 40 123 4567",
   "email": "matti@example.com",
@@ -295,7 +295,7 @@ None.
 **Request Body:**
 ```json
 {
-  "name": "Nordic Supplies Oy",
+  "companyName": "Nordic Supplies Oy",
   "contactName": "Anna Virtanen",
   "phone": "+358 40 987 6543",
   "email": "anna@example.com"
