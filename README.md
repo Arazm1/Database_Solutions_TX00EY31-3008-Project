@@ -30,7 +30,7 @@ The project also demonstrates database features such as indexing, views, trigger
    - [Database Security](#database-security)
    - [Database Monitoring](#database-monitoring)
 10. [Error Handling](#10-error-handling)
-11. [API Documentation and Testing](#11-api-documentation-and-testing)
+11. [API Documentation and Testing](#11-api-documentation)
 12. [Summary](#12-summary)
 
 
@@ -158,7 +158,7 @@ The API uses HTTP methods such as GET, POST, PUT, and DELETE, depending on the o
 
 The API endpoints are more thorougly explained below in this documentation.
 
----
+
 
 ## 9. Database Features
 
@@ -280,3 +280,17 @@ Examples include:
 * **400 Bad Request** - invalid request body or enum value
 * **404 Not Found** - requested resource does not exist when the service throws a corresponding ResponseStatusException
 * **409 Conflict** - optimistic locking conflict
+
+
+## 11. API Documentation
+
+Detailed documentation for all REST API endpoints, request/response formats, query parameters, and pagination examples can be found in [API.md](./docs/API.md).
+
+
+## 12. Summary
+
+This project demonstrates the development of a webshop REST API using Spring Boot, Spring Data JPA, and MariaDB.
+
+It combines REST endpoint design and layered application architecture with database indexing, views, trigger-based price history, transaction management, optimistic locking, request validation, exception handling, database permissions, and monitoring.
+
+The API and database features were tested using Postman and MariaDB queries.
