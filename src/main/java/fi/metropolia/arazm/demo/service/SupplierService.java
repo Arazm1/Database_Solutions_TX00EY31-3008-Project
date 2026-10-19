@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
 
 import fi.metropolia.arazm.demo.dto.supplier.SupplierDTO;
+import fi.metropolia.arazm.demo.dto.supplier.SupplierRequest;
 import fi.metropolia.arazm.demo.dto.supplieraddresses.SupplierAddressDTO;
 import fi.metropolia.arazm.demo.entity.Supplier;
 import fi.metropolia.arazm.demo.entity.SupplierAddress;
@@ -75,14 +76,28 @@ public class SupplierService {
 
     /**
      * Creates a new supplier.
-     *
-     * @param supplier the supplier to create
-     * @return the created supplier as a DTO
      */
     @Transactional
-    public SupplierDTO createSupplier(Supplier supplier) {
-        Supplier savedSupplier = repository.save(supplier);
-        return toSupplierDTO(savedSupplier);
+    public SupplierDTO createSupplier(SupplierRequest request) {
+        Supplier supplier = new Supplier();
+        supplier.setName(request.companyName());
+        supplier.setContactName(request.contactName());
+        supplier.setEmail(request.email());
+        supplier.setPhone(request.phone());
+
+        if (request.supplierAddress() != null) {
+            SupplierAddress address = new SupplierAddress();
+            address.setStreetAddress(request.supplierAddress().streetAddress());
+            address.setPostalCode(request.supplierAddress().postalCode());
+            address.setCity(request.supplierAddress().city());
+            address.setCountry(request.supplierAddress().country());
+
+            // Attach address to supplier
+            supplier.setSupplierAddress(address);
+        }
+
+        Supplier saved = supplierRepository.save(supplier);
+        return toSupplierDTO(saved);
     }
 
 
@@ -90,17 +105,15 @@ public class SupplierService {
      * Updates an existing supplier.
      * 
      * @param id the ID of the specific Supplier to be updated.
-     * @param updatedSupplier the updated supplier information.
      */
     @Transactional
-    public SupplierDTO updateSupplier(Integer id, Supplier updatedSupplier){
-
+    public SupplierDTO updateSupplier(Integer id, SupplierRequest request) {
         Supplier supplier = findSupplierById(id);
 
-        supplier.setName(updatedSupplier.getName());
-        supplier.setContactName(updatedSupplier.getContactName());
-        supplier.setPhone(updatedSupplier.getPhone());
-        supplier.setEmail(updatedSupplier.getEmail());
+        supplier.setName(request.companyName());
+        supplier.setContactName(request.contactName());
+        supplier.setPhone(request.phone());
+        supplier.setEmail(request.email());
 
         return toSupplierDTO(supplier);
     }
@@ -144,19 +157,20 @@ public class SupplierService {
      * @param supplier the entity.
      * @return the supplier DTO.
      */
-    private SupplierDTO toSupplierDTO(Supplier supplier){
-        
+    private SupplierDTO toSupplierDTO(Supplier supplier) {
         SupplierAddress address = supplier.getSupplierAddress();
 
-        SupplierAddressDTO addressDTO = new SupplierAddressDTO(
-            address.getId(),
-            address.getStreetAddress(),
-            address.getPostalCode(),
-            address.getCity(),
-            address.getCountry()        
-        );
-        
-        
+        SupplierAddressDTO addressDTO = null;
+        if (address != null) {
+            addressDTO = new SupplierAddressDTO(
+                address.getId(),
+                address.getStreetAddress(),
+                address.getPostalCode(),
+                address.getCity(),
+                address.getCountry()
+            );
+        }
+
         return new SupplierDTO(
             supplier.getId(),
             supplier.getName(),
