@@ -2,6 +2,8 @@ package fi.metropolia.arazm.demo.controller;
 
 import java.util.List;
 
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -15,6 +17,9 @@ import fi.metropolia.arazm.demo.dto.Order.OrderPageDTO;
 import fi.metropolia.arazm.demo.dto.Order.OrderRequest;
 import fi.metropolia.arazm.demo.dto.Order.StatusUpdateRequest;
 import fi.metropolia.arazm.demo.service.OrderService;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.Positive;
 
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -29,51 +34,66 @@ public class OrderController {
     }
 
     /**
-     * GET
-     * @return
+     * Retrieves all orders.
      */
     @GetMapping
-    public List<OrderDto> all(){
+    public List<OrderDto> getAllOrders(){
         return service.getAllOrders();
     }
 
     /**
-     * GET
-     * @param page
-     * @param size
-     * @return
+     * Retrieves a paginated list of orders.
      */
     @GetMapping("/paged")
     public OrderPageDTO getPagedOrders(
-            @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "20") int size) {
+           @RequestParam(defaultValue = "0") @Min(0) int page,
+           @RequestParam(defaultValue = "20") @Min(1) @Max(100) int size) {
 
         return service.getPagedOrders(page, size);
     }
 
     /**
-     * GET
-     * 
-     * @param id
-     * @return
+     * Retrieves a single order by ID.
      */
     @GetMapping("/{id}")
-    public OrderDto one(@PathVariable Integer id) {
+    public OrderDto one(@PathVariable @Positive Integer id) {
         return service.getOrder(id);
     }
 
     /**
-     * POST
+     * Creates a new order.
      */
     @PostMapping
     public OrderDto create(@RequestBody OrderRequest req){
         return service.createOrder(req);
     }
 
+    /**
+     * Updates the status of an order by ID.
+     */
     @PutMapping("/{id}/status")
     public OrderDto updateStatus(
-            @PathVariable Integer id,
+            @PathVariable @Positive Integer id,
             @RequestBody StatusUpdateRequest request) {
         return service.updateOrderStatus(id, request.status());
+    }
+
+    /**
+     * Retrieves all orders belonging to a specific customer.
+     */
+    @GetMapping("/customer/{id}")
+    public List<OrderDto> getOrdersByCustomer(
+            @PathVariable @Positive Integer id) {
+        return service.getOrdersByCustomer(id);
+    }
+
+    /**
+     * Deletes an order by ID.
+     */
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteOrder(
+            @PathVariable @Positive Integer id) {
+        service.deleteOrder(id);
+        return ResponseEntity.noContent().build();
     }
 }

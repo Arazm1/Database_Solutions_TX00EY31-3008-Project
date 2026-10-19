@@ -103,6 +103,31 @@ public class OrderService {
         return mapper.toDto(ordersRepository.save(order));
     }
 
+    public List<OrderDto> getOrdersByCustomer(Integer customerId) {
+        if (!customerRepository.existsById(customerId)) {
+            throw new ResponseStatusException(
+                    HttpStatus.NOT_FOUND,
+                    "Customer not found: " + customerId
+            );
+        }
+
+        return ordersRepository.findByCustomerId(customerId)
+                .stream()
+                .map(mapper::toDto)
+                .toList();
+    }
+
+    @Transactional
+    public void deleteOrder(Integer id) {
+        Orders order = ordersRepository.findById(id)
+                .orElseThrow(() -> new ResponseStatusException(
+                        HttpStatus.NOT_FOUND,
+                        "Order not found with ID " + id
+                ));
+
+        ordersRepository.delete(order);
+    }
+
 
 
     @Transactional
