@@ -9,6 +9,9 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.Positive;
+
 @RestController
 @RequestMapping("/api/addresses")
 public class CustomerAddressesController {
@@ -19,7 +22,6 @@ public class CustomerAddressesController {
         this.repository = repository;
     }
 
-
     private AddressDTO toDto(CustomerAddresses address) {
         return new AddressDTO(
                 address.getId(),
@@ -28,23 +30,21 @@ public class CustomerAddressesController {
                 address.getCity(),
                 address.getCountry(),
                 address.getCustomer() == null
-                        ? null : address.getCustomer().getId()
-        );
+                        ? null
+                        : address.getCustomer().getId());
     }
 
-
-    @GetMapping 
+    @GetMapping
     @Transactional(readOnly = true)
-    public List<AddressDTO> getAllAddresses(){
+    public List<AddressDTO> getAllAddresses() {
         return repository.findAll().stream()
                 .map(this::toDto)
                 .toList();
     }
 
-
     @GetMapping("/{id}")
     @Transactional(readOnly = true)
-    public ResponseEntity<AddressDTO> getAddressById(@PathVariable Integer id) {
+    public ResponseEntity<AddressDTO> getAddressById(@PathVariable @Positive Integer id) {
         return repository.findById(id)
                 .map(this::toDto)
                 .map(ResponseEntity::ok)
@@ -57,24 +57,23 @@ public class CustomerAddressesController {
      */
     @GetMapping("/customer/{customerId}")
     @Transactional(readOnly = true)
-    public List<AddressDTO> getAddressesByCustomerId(@PathVariable Integer customerId) {
+    public List<AddressDTO> getAddressesByCustomerId(@PathVariable @Positive Integer customerId) {
         return repository.findByCustomerId(customerId).stream()
-                    .map(this::toDto)
-                    .toList();
+                .map(this::toDto)
+                .toList();
     }
 
     /**
      * POST /api/addresses
      * Create a new address
      */
-    @PostMapping 
+    @PostMapping
     @Transactional
-    public AddressDTO createAddress(@RequestBody CustomerAddresses address) {
+    public AddressDTO createAddress(@Valid @RequestBody CustomerAddresses address) {
         CustomerAddresses saved = repository.save(address);
         return toDto(saved);
     }
 
-    
     /**
      * PUT /api/addresses/{id}
      * Update an existing address.
@@ -82,8 +81,8 @@ public class CustomerAddressesController {
     @PutMapping("/{id}")
     @Transactional
     public ResponseEntity<AddressDTO> updateAddress(
-            @PathVariable Integer id,
-            @RequestBody CustomerAddresses updatedAddress) {
+            @PathVariable @Positive Integer id,
+            @Valid @RequestBody CustomerAddresses updatedAddress) {
 
         return repository.findById(id)
                 .map(address -> {
@@ -98,14 +97,13 @@ public class CustomerAddressesController {
                 .orElse(ResponseEntity.notFound().build());
     }
 
-
     /**
      * DELETE /api/addresses/{id}
      * Delete an address
      */
     @DeleteMapping("/{id}")
     @Transactional
-    public ResponseEntity<Void> deleteAddress(@PathVariable Integer id) {
+    public ResponseEntity<Void> deleteAddress(@PathVariable @Positive Integer id) {
         if (repository.existsById(id)) {
             repository.deleteById(id);
             return ResponseEntity.noContent().build();
