@@ -70,6 +70,21 @@ Requested Body:
 **Endpoint:**
 * `PUT /api/products/{id}`
 
+Content-Type:
+`application/json`
+
+Requested Body:
+```json
+{
+  "name": "Quantum Widget 457 MKII",
+  "description": "A sample product",
+  "price": 949.99,
+  "stockQuantity": 10,
+  "categoryId": 3,
+  "supplierId": 17
+}
+```
+
 ### DELETE Product
 **Endpoint:**
 * `DELETE /api/products/{id}`
@@ -81,38 +96,118 @@ Requested Body:
 TODOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
 
 
+
+
+
+
+
 ---
 
-## 3. Customers
+## 3. ## Customers
 
 ### GET All Customers
 
 **Endpoint:**
+`GET /api/customer`
 
+**Request Body:**
+None.
+
+---
+
+### GET Customers with Pagination
+
+**Endpoint:**
+`GET /api/customer/paged`
+
+**Query Parameters:**
+- `page` — page number, minimum `0`, default `0`
+- `size` — page size, `1–100`, default `20`
+
+**Example:**
+`GET /api/customer/paged?page=0&size=20`
+
+**Request Body:**
+None.
+
+---
 
 ### GET Customer by ID
 
 **Endpoint:**
+`GET /api/customer/{id}`
 
+**Path Parameter:**
+- `id` — customer ID, must be positive
 
-### POST Create Customer
+**Example:**
+`GET /api/customer/1`
 
-**Endpoint:**
+**Request Body:**
+None.
 
-
-### PUT Update Customer
-
-**Endpoint:**
-
-
-### DELETE Customer
-
-**Endpoint:**
-
+---
 
 ### GET Customer Contacts
 
 **Endpoint:**
+`GET /api/customer/contacts`
+
+Returns customer contact information from the database view `nakyma2`.
+
+**Request Body:**
+None.
+
+---
+
+### POST Create Customer
+
+**Endpoint:**
+`POST /api/customer`
+
+**Content-Type:**
+`application/json`
+
+**Request Body:**
+```json
+{
+  "firstName": "Matti",
+  "lastName": "Meikäläinen",
+  "email": "matti.meikalainen@example.com",
+  "phone": "+358 40 123 4567"
+}
+```
+
+
+---
+
+### PUT Update Customer
+
+**Endpoint:**
+`PUT /api/customer/{id}`
+
+**Path Parameter:**
+- `id` — customer ID, must be positive
+
+**Example:**
+`PUT /api/customer/1`
+
+**Content-Type:**
+`application/json`
+
+**Request Body:**
+```json
+{
+  "firstName": "Matti",
+  "lastName": "Meikäläinen",
+  "email": "matti.updated@example.com",
+  "phone": "+358 40 987 6543"
+}
+```
+
+
+
+
 
 
 ---
