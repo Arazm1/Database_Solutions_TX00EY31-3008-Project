@@ -1,7 +1,11 @@
 package fi.metropolia.arazm.demo.controller;
 
+import fi.metropolia.arazm.demo.dto.supplieraddresses.SupplierAddressRequest;
 import fi.metropolia.arazm.demo.entity.SupplierAddress;
 import fi.metropolia.arazm.demo.repository.SupplierAddressRepository;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.Positive;
+
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -26,7 +30,7 @@ public class SupplierAddressController {
 
     @GetMapping("/{id}")
     @Transactional(readOnly = true)
-    public ResponseEntity<SupplierAddress> getById(@PathVariable Integer id) {
+    public ResponseEntity<SupplierAddress> getById(@PathVariable @Positive Integer id) {
         return addressRepository.findById(id)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
@@ -34,22 +38,29 @@ public class SupplierAddressController {
 
     @PostMapping
     @Transactional
-    public SupplierAddress create(@RequestBody SupplierAddress address) {
+    public SupplierAddress create(@Valid @RequestBody SupplierAddressRequest request) {
+        
+        SupplierAddress address = new SupplierAddress();
+        address.setStreetAddress(request.streetAddress());
+        address.setPostalCode(request.postalCode());
+        address.setCity(request.city());
+        address.setCountry(request.country());
+        
         return addressRepository.save(address);
     }
 
     @PutMapping("/{id}")
     @Transactional
     public ResponseEntity<SupplierAddress> update(
-            @PathVariable Integer id,
-            @RequestBody SupplierAddress updatedAddress) {
+            @PathVariable @Positive Integer id,
+            @Valid @RequestBody SupplierAddressRequest request) {
 
         return addressRepository.findById(id)
                 .map(address -> {
-                    address.setStreetAddress(updatedAddress.getStreetAddress());
-                    address.setPostalCode(updatedAddress.getPostalCode());
-                    address.setCity(updatedAddress.getCity());
-                    address.setCountry(updatedAddress.getCountry());
+                    address.setStreetAddress(request.streetAddress());
+                    address.setPostalCode(request.postalCode());
+                    address.setCity(request.city());
+                    address.setCountry(request.country());
 
                     SupplierAddress saved = addressRepository.save(address);
                     return ResponseEntity.ok(saved);
@@ -59,7 +70,7 @@ public class SupplierAddressController {
 
     @DeleteMapping("/{id}")
     @Transactional
-    public ResponseEntity<Void> delete(@PathVariable Integer id) {
+    public ResponseEntity<Void> delete(@PathVariable @Positive Integer id) {
         if (!addressRepository.existsById(id)) {
             return ResponseEntity.notFound().build();
         }
