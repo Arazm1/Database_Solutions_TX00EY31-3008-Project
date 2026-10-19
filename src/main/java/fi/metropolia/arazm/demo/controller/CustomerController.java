@@ -18,7 +18,6 @@ import fi.metropolia.arazm.demo.dto.Customer.CustomerContactDTO;
 import fi.metropolia.arazm.demo.dto.Customer.CustomerDTO;
 import fi.metropolia.arazm.demo.dto.Customer.CustomerPageResponse;
 import fi.metropolia.arazm.demo.dto.Customer.CustomerRequest;
-import fi.metropolia.arazm.demo.entity.Customer;
 import fi.metropolia.arazm.demo.service.CustomerService;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Max;
