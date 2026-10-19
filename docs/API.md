@@ -322,31 +322,129 @@ None.
 
 ---
 
-## 5. Orders
+## 5. ## Orders
 
 ### GET All Orders
 
 **Endpoint:**
+`GET /api/orders`
 
+**Request Body:** None.
+
+---
+
+### GET Orders with Pagination
+
+**Endpoint:**
+`GET /api/orders/paged`
+
+**Query Parameters:**
+- `page` — page number, minimum `0`, default `0`
+- `size` — number of orders per page, range `1–100`, default `20`
+
+**Example:**
+`GET /api/orders/paged?page=0&size=20`
+
+**Request Body:** None.
+
+---
 
 ### GET Order by ID
 
 **Endpoint:**
+`GET /api/orders/{id}`
 
+**Path Parameter:**
+- `id` - positive order ID
+
+**Request Body:** None.
+
+---
+
+### GET Orders by Customer
+
+**Endpoint:**
+`GET /api/orders/customer/{id}`
+
+**Path Parameter:**
+- `id` — positive customer ID
+
+
+Returns the orders belonging to the specified customer.
+
+**Request Body:** None.
+
+---
 
 ### POST Create Order
 
 **Endpoint:**
+`POST /api/orders`
 
+**Content-Type:**
+`application/json`
+
+**Request Body:**
+```json
+{
+  "customerId": 1,
+  "shippingAddressId": 1,
+  "items": [
+    {
+      "productId": 3,
+      "quantity": 2
+    },
+    {
+      "productId": 5,
+      "quantity": 1
+    }
+  ]
+}
+```
+
+**Fields:**
+- `customerId` — positive ID of an existing customer
+- `shippingAddressId` — positive ID of an existing shipping address
+- `items` — non-empty list of order items
+- `productId` — positive ID of an existing product
+- `quantity` — positive quantity for each item (ensure `@Positive` validation is added to the DTO)
+
+The order status is initially set to `NEW`.
+
+---
 
 ### PUT Update Order Status
 
 **Endpoint:**
+`PUT /api/orders/{id}/status`
 
+**Path Parameter:**
+- `id` — positive order ID
+
+**Content-Type:**
+`application/json`
+
+**Request Body:**
+```json
+{
+  "status": "SHIPPED"
+}
+```
+
+**Valid status values:** Use the constants defined in `OrderStatus` enum such `NEW`, `SHIPPED` or `CANCELLED`.
+
+---
 
 ### DELETE Order
 
 **Endpoint:**
+`DELETE /api/orders/{id}`
+
+**Path Parameter:**
+- `id` - positive order ID
+
+
+**Request Body:** None.
 
 
 ---
