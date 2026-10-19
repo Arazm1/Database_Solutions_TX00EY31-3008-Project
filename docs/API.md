@@ -7,7 +7,9 @@
 3. [Customers](#customers)
 4. [Suppliers](#suppliers)
 5. [Orders](#orders)
-6. [Error Responses](#error-responses)
+6. [Addresses](#addresses)
+7. [Orders](#orders)
+8. [Error Responses](#error-responses)
 
 ---
 
@@ -445,6 +447,87 @@ The order status is initially set to `NEW`.
 
 
 **Request Body:** None.
+
+
+
+## Addresses
+
+### GET All Addresses
+
+**Endpoint:**
+* `GET /api/addresses`
+
+**Request Body:** None.
+
+---
+
+### GET Address by ID
+
+**Endpoint:**
+* `GET /api/addresses/{id}`
+
+
+**Request Body:** None.
+
+**Responses:**
+- `200 OK` — address found.
+- `404 Not Found` — address does not exist.
+
+---
+
+### GET Addresses by Customer
+
+**Endpoint:**
+`GET /api/addresses/customer/{customerId}`
+
+
+**Path Parameter:**
+- `customerId` — ID of the customer.
+
+**Request Body:** None.
+
+---
+
+### POST Create Address
+
+**Endpoint:**
+`POST /api/addresses`
+
+**Content-Type:**
+`application/json`
+
+**Request Body:**
+```json
+{
+  "streetAddress": "Mannerheimintie 10",
+  "postalCode": "00100",
+  "city": "Helsinki",
+  "country": "Finland",
+  "customer": {
+    "id": 1
+  }
+}
+```
+
+**Fields:**
+- `streetAddress` — street address.
+- `postalCode` — postal code.
+- `city` — city.
+- `country` — country.
+- `customer.id` — ID of the customer associated with the address.
+
+---
+
+### DELETE Address
+
+**Endpoint:**
+`DELETE /api/addresses/{id}`
+
+**Request Body:** None.
+
+**Responses:**
+- `204 No Content` — address deleted successfully.
+- `404 Not Found` — address does not exist.
 
 
 ---
