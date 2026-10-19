@@ -1,4 +1,4 @@
-package fi.metropolia.arazm.demo.dto.category;
+package fi.metropolia.arazm.demo.dto.ategory;
 
 
 public record ProductCategoryDTO(

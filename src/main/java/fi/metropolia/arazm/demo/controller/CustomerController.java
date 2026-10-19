@@ -14,11 +14,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import fi.metropolia.arazm.demo.dto.customer.CustomerAllDTO;
-import fi.metropolia.arazm.demo.dto.customer.CustomerContactDTO;
-import fi.metropolia.arazm.demo.dto.customer.CustomerDTO;
-import fi.metropolia.arazm.demo.dto.customer.CustomerPageResponse;
-import fi.metropolia.arazm.demo.dto.customer.CustomerRequest;
+import fi.metropolia.arazm.demo.dto.ustomer.CustomerAllDTO;
+import fi.metropolia.arazm.demo.dto.ustomer.CustomerContactDTO;
+import fi.metropolia.arazm.demo.dto.ustomer.CustomerDTO;
+import fi.metropolia.arazm.demo.dto.ustomer.CustomerPageResponse;
+import fi.metropolia.arazm.demo.dto.ustomer.CustomerRequest;
 import fi.metropolia.arazm.demo.service.CustomerService;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Max;

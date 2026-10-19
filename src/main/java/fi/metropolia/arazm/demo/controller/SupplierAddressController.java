@@ -1,6 +1,6 @@
 package fi.metropolia.arazm.demo.controller;
 
-import fi.metropolia.arazm.demo.dto.supplieraddresses.SupplierAddressRequest;
+import fi.metropolia.arazm.demo.dto.upplieraddresses.SupplierAddressRequest;
 import fi.metropolia.arazm.demo.entity.SupplierAddress;
 import fi.metropolia.arazm.demo.repository.SupplierAddressRepository;
 import jakarta.validation.Valid;
