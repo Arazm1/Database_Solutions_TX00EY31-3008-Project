@@ -194,7 +194,7 @@ By applying page-based limits (translated to SQL `LIMIT` and `OFFSET` clauses), 
     - `GET /api/customer/paged?page=0&size=50`
 
 
-
+----
 
 ### Database Views
 The database contains view `nakyma2`.
@@ -203,7 +203,7 @@ The view combines customer information with customer address information to prov
 
 The view can control which columns are exposed to a database user and they do not automatically store a separate copy of the underlying data.
 
-
+----
 
 ### Triggers and Price History
 
@@ -218,7 +218,7 @@ When a product's price changes, the trigger inserts a history record into **pric
 
 The trigger was tested by updating a product price through the REST API using Postman and verifying that the change appeared in price_log.
 
-
+----
 
 ### Transactions and Concurrency
 
@@ -228,7 +228,7 @@ Transactions help ensure that related operations succeed or fail together. The o
 
 The Orders entity also uses JPA's `@Version` field for optimistic locking. This helps detect conflicting updates when multiple transactions modify the same order.
 
-
+----
 
 ### Validation
 
@@ -243,7 +243,7 @@ Examples include:
 
 Controllers use @Valid to trigger validation of request bodies.
 
-
+----
 
 ### Temporal Data
 
@@ -260,7 +260,7 @@ The **trg_price_change** trigger records the previous and new prices along with 
 
 This is a trigger-based history table rather than a MariaDB system-versioned temporal table.
 
-
+----
 
 ### Database Security
 
