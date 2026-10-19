@@ -327,7 +327,7 @@ None.
 ### GET All Orders
 
 **Endpoint:**
-`GET /api/orders`
+* `GET /api/orders`
 
 **Request Body:** None.
 
@@ -336,7 +336,7 @@ None.
 ### GET Orders with Pagination
 
 **Endpoint:**
-`GET /api/orders/paged`
+* `GET /api/orders/paged`
 
 **Query Parameters:**
 - `page` — page number, minimum `0`, default `0`
@@ -352,7 +352,7 @@ None.
 ### GET Order by ID
 
 **Endpoint:**
-`GET /api/orders/{id}`
+* `GET /api/orders/{id}`
 
 **Path Parameter:**
 - `id` - positive order ID
@@ -364,7 +364,7 @@ None.
 ### GET Orders by Customer
 
 **Endpoint:**
-`GET /api/orders/customer/{id}`
+* `GET /api/orders/customer/{id}`
 
 **Path Parameter:**
 - `id` — positive customer ID
@@ -379,7 +379,7 @@ Returns the orders belonging to the specified customer.
 ### POST Create Order
 
 **Endpoint:**
-`POST /api/orders`
+* `POST /api/orders`
 
 **Content-Type:**
 `application/json`
@@ -416,10 +416,10 @@ The order status is initially set to `NEW`.
 ### PUT Update Order Status
 
 **Endpoint:**
-`PUT /api/orders/{id}/status`
+* `PUT /api/orders/{id}/status`
 
 **Path Parameter:**
-- `id` — positive order ID
+- `id` - positive order ID
 
 **Content-Type:**
 `application/json`
@@ -438,7 +438,7 @@ The order status is initially set to `NEW`.
 ### DELETE Order
 
 **Endpoint:**
-`DELETE /api/orders/{id}`
+* `DELETE /api/orders/{id}`
 
 **Path Parameter:**
 - `id` - positive order ID
