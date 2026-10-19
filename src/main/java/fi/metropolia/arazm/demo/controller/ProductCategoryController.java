@@ -7,6 +7,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import jakarta.validation.constraints.Positive;
+import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/api/categories")
@@ -18,7 +20,6 @@ public class ProductCategoryController {
         this.categoryRepository = categoryRepository;
     }
 
-
     /**
      * Converts a ProductCategory entity into a ProductCategoryDTO.
      *
@@ -29,8 +30,7 @@ public class ProductCategoryController {
         return new ProductCategoryDTO(
                 category.getId(),
                 category.getName(),
-                category.getDescription()
-        );
+                category.getDescription());
     }
 
     /**
@@ -47,15 +47,15 @@ public class ProductCategoryController {
                 .toList();
     }
 
-
     /**
      * GET /api/categories/{id}
      * Retrieves a Product Category by its ID.
+     * 
      * @param id the ID of the Product Category.
      * @return the category DTO if found, or HTTP 404 Not Found
      */
     @GetMapping("/{id}")
-    public ResponseEntity<ProductCategoryDTO> getById(@PathVariable Integer id) {
+    public ResponseEntity<ProductCategoryDTO> getById(@PathVariable @Positive Integer id) {
         return categoryRepository.findById(id)
                 .map(this::toDto)
                 .map(ResponseEntity::ok)
@@ -70,21 +70,19 @@ public class ProductCategoryController {
      * @return the created product category DTO
      */
     @PostMapping
-    public ProductCategoryDTO create(@RequestBody ProductCategory category) {
+    public ProductCategoryDTO create(@Valid @RequestBody ProductCategory category) {
         ProductCategory saved = categoryRepository.save(category);
         return toDto(saved);
     }
 
-
-    
     /**
      * PUT /api/categories/{id}
      * Updates an existing product category.
      */
     @PutMapping("/{id}")
     public ResponseEntity<ProductCategoryDTO> update(
-            @PathVariable Integer id,
-            @RequestBody ProductCategory updatedCategory) {
+            @PathVariable @Positive Integer id,
+            @Valid @RequestBody ProductCategory updatedCategory) {
 
         return categoryRepository.findById(id)
                 .map(category -> {
@@ -97,7 +95,6 @@ public class ProductCategoryController {
                 .orElse(ResponseEntity.notFound().build());
     }
 
-
     /**
      * DELETE /api/categories/{id}
      * Deletes a product category by its ID.
@@ -106,7 +103,7 @@ public class ProductCategoryController {
      * @return HTTP 204 No Content if deleted, or HTTP 404 Not Found if not found
      */
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> delete(@PathVariable Integer id) {
+    public ResponseEntity<Void> delete(@PathVariable @Positive Integer id) {
         if (!categoryRepository.existsById(id)) {
             return ResponseEntity.notFound().build();
         }
