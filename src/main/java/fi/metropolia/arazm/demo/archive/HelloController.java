@@ -1,4 +1,4 @@
-package fi.metropolia.arazm.demo;
+package fi.metropolia.arazm.demo.archive;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
