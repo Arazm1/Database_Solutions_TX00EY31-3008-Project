@@ -251,9 +251,14 @@ The database uses a dual strategy for historical data retention:
 
 **1. Native System-Versioned Temporal Tables (`WITH SYSTEM VERSIONING`)**
 
+
 The **customers** table utilizes MariaDB's native system versioning (`WITH SYSTEM VERSIONING`). MariaDB automatically maintains full row state history whenever customer records are inserted, updated, or deleted, allowing historical point-in-time queries using SQL clauses like `FOR SYSTEM_TIME AS OF`.
 
+&nbsp;
+
 **2. Trigger-Based Audit Logging (price_log)**
+
+
 The price_log table preserves a history of product price changes.
 
 The **trg_price_change** trigger records the previous and new prices along with the timestamp of each change. This allows earlier prices to be inspected after a product has been updated.
