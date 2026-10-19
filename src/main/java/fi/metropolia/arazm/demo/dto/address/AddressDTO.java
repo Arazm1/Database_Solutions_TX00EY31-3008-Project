@@ -1,4 +1,4 @@
-package fi.metropolia.arazm.demo.dto.ddress;
+package fi.metropolia.arazm.demo.dto.address;
 
 public record AddressDTO(
     Integer id,

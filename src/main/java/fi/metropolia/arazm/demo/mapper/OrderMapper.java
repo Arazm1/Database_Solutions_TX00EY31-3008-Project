@@ -4,8 +4,8 @@ import java.util.List;
 
 import org.springframework.stereotype.Component;
 
-import fi.metropolia.arazm.demo.dto.rder.OrderDTO;
-import fi.metropolia.arazm.demo.dto.rder.OrderItemDTO;
+import fi.metropolia.arazm.demo.dto.order.OrderDTO;
+import fi.metropolia.arazm.demo.dto.order.OrderItemDTO;
 import fi.metropolia.arazm.demo.entity.OrderItem;
 import fi.metropolia.arazm.demo.entity.Orders;
 
