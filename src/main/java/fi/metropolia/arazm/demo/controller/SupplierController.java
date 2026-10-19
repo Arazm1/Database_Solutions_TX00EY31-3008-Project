@@ -3,9 +3,9 @@ package fi.metropolia.arazm.demo.controller;
 import fi.metropolia.arazm.demo.dto.supplier.SupplierDTO;
 import fi.metropolia.arazm.demo.dto.supplier.SupplierPageResponse;
 import fi.metropolia.arazm.demo.dto.supplier.SupplierRequest;
-import fi.metropolia.arazm.demo.entity.Supplier;
 import fi.metropolia.arazm.demo.service.SupplierService;
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.Positive;
 
@@ -41,7 +41,7 @@ public class SupplierController {
     @GetMapping("/paged")
     public SupplierPageResponse getPagedSuppliers(
             @RequestParam(defaultValue = "0") @Min(0) int page,
-            @RequestParam(defaultValue = "20") int size) {
+            @RequestParam(defaultValue = "20") @Min(1) @Max(100) int size) {
 
         return service.getPagedResponse(page, size);
     }
