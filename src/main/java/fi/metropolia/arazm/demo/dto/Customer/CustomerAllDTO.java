@@ -1,14 +1,7 @@
 package fi.metropolia.arazm.demo.dto.Customer;
 
 /**
- * 
- * CustomerAllDTO
- * @param id
- * @param firstName
- * @param lastName
- * @param email
- * @param phone
- * 
+ *
  * DTO that returns all Customers with their parameters excluding their orders.
  */
 public record CustomerAllDTO(
