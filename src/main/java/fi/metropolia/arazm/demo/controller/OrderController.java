@@ -10,9 +10,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import fi.metropolia.arazm.demo.dto.Order.CreateOrderRequest;
 import fi.metropolia.arazm.demo.dto.Order.OrderDto;
 import fi.metropolia.arazm.demo.dto.Order.OrderPageDTO;
+import fi.metropolia.arazm.demo.dto.Order.OrderRequest;
 import fi.metropolia.arazm.demo.dto.Order.StatusUpdateRequest;
 import fi.metropolia.arazm.demo.service.OrderService;
 
@@ -66,7 +66,7 @@ public class OrderController {
      * POST
      */
     @PostMapping
-    public OrderDto create(@RequestBody CreateOrderRequest req){
+    public OrderDto create(@RequestBody OrderRequest req){
         return service.createOrder(req);
     }
 
