@@ -207,9 +207,9 @@ The view can control which columns are exposed to a database user and they do no
 
 ### Triggers and Price History
 
-The database contains an AFTER UPDATE trigger named trg_price_change on the products table.
+The database contains an `AFTER UPDATE` trigger named `trg_price_change` on the **products** table.
 
-When a product's price changes, the trigger inserts a history record into price_log containing:
+When a product's price changes, the trigger inserts a history record into **price_log** containing:
 
 * Product ID
 * Old price
@@ -247,6 +247,13 @@ Controllers use @Valid to trigger validation of request bodies.
 
 ### Temporal Data
 
+The database uses a dual strategy for historical data retention:
+
+**1. Native System-Versioned Temporal Tables (`WITH SYSTEM VERSIONING`)**
+
+The **customers** table utilizes MariaDB's native system versioning (`WITH SYSTEM VERSIONING`). MariaDB automatically maintains full row state history whenever customer records are inserted, updated, or deleted, allowing historical point-in-time queries using SQL clauses like `FOR SYSTEM_TIME AS OF`.
+
+**2. Trigger-Based Audit Logging (price_log)**
 The price_log table preserves a history of product price changes.
 
 The **trg_price_change** trigger records the previous and new prices along with the timestamp of each change. This allows earlier prices to be inspected after a product has been updated.
