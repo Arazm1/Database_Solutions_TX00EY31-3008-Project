@@ -194,7 +194,7 @@ By applying page-based limits (translated to SQL `LIMIT` and `OFFSET` clauses), 
     - `GET /api/customer/paged?page=0&size=50`
 
 
-
+----
 
 ### Database Views
 The database contains view `nakyma2`.
@@ -203,13 +203,13 @@ The view combines customer information with customer address information to prov
 
 The view can control which columns are exposed to a database user and they do not automatically store a separate copy of the underlying data.
 
-
+----
 
 ### Triggers and Price History
 
-The database contains an AFTER UPDATE trigger named trg_price_change on the products table.
+The database contains an `AFTER UPDATE` trigger named `trg_price_change` on the **products** table.
 
-When a product's price changes, the trigger inserts a history record into price_log containing:
+When a product's price changes, the trigger inserts a history record into **price_log** containing:
 
 * Product ID
 * Old price
@@ -218,7 +218,7 @@ When a product's price changes, the trigger inserts a history record into price_
 
 The trigger was tested by updating a product price through the REST API using Postman and verifying that the change appeared in price_log.
 
-
+----
 
 ### Transactions and Concurrency
 
@@ -228,7 +228,7 @@ Transactions help ensure that related operations succeed or fail together. The o
 
 The Orders entity also uses JPA's `@Version` field for optimistic locking. This helps detect conflicting updates when multiple transactions modify the same order.
 
-
+----
 
 ### Validation
 
@@ -243,9 +243,21 @@ Examples include:
 
 Controllers use @Valid to trigger validation of request bodies.
 
-
+----
 
 ### Temporal Data
+
+The database uses a dual strategy for historical data retention:
+
+**1. Native System-Versioned Temporal Tables (`WITH SYSTEM VERSIONING`)**
+
+
+The **customers** table utilizes MariaDB's native system versioning (`WITH SYSTEM VERSIONING`). MariaDB automatically maintains full row state history whenever customer records are inserted, updated, or deleted, allowing historical point-in-time queries using SQL clauses like `FOR SYSTEM_TIME AS OF`.
+
+&nbsp;
+
+**2. Trigger-Based Audit Logging (price_log)**
+
 
 The price_log table preserves a history of product price changes.
 
@@ -253,7 +265,7 @@ The **trg_price_change** trigger records the previous and new prices along with 
 
 This is a trigger-based history table rather than a MariaDB system-versioned temporal table.
 
-
+----
 
 ### Database Security
 
