@@ -144,7 +144,6 @@ The response returns through the same layers to the client.
 The application uses packages to separate responsibilities and make the project overall more clear. The main package is within `/demo` folder.
 
 
-
 ## 8. API Overview
 The REST API exposes endpoints for working with webshop resources.
 
@@ -270,7 +269,6 @@ The application connects to MariaDB using dedicated service accounts rather than
 
 
 
----
 
 ## 10. Error Handling
 The application uses a centralized GlobalExceptionHandler annotated with @RestControllerAdvice.
