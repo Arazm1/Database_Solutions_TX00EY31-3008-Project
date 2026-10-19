@@ -10,6 +10,9 @@ import fi.metropolia.arazm.demo.dto.product.ProductPageResponse;
 import fi.metropolia.arazm.demo.dto.product.ProductRequest;
 import fi.metropolia.arazm.demo.service.ProductService;
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.Positive;
 
 @RestController
 @RequestMapping("/api/products")
@@ -28,14 +31,14 @@ public class ProductController {
 
     @GetMapping("/paged")
     public ProductPageResponse getAllPaged(
-            @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "20") int size) {
+            @RequestParam(defaultValue = "0") @Min(0) int page,
+            @RequestParam(defaultValue = "20") @Min(1) @Max(100) int size) {
 
         return service.getAllPaged(page, size);
     }
 
     @GetMapping("/{id}")
-    public ProductDTO getById(@PathVariable Integer id) {
+    public ProductDTO getById(@PathVariable @Positive Integer id) {
         return service.getById(id);
     }
 
@@ -46,13 +49,13 @@ public class ProductController {
     }
 
     @PutMapping("/{id}")
-    public ProductDTO update(@PathVariable Integer id, @Valid @RequestBody ProductRequest req) {
+    public ProductDTO update(@PathVariable @Positive Integer id, @Valid @RequestBody ProductRequest req) {
         return service.update(id, req);
     }
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void delete(@PathVariable Integer id) {
+    public void delete(@PathVariable @Positive Integer id) {
         service.delete(id);
     }
 
