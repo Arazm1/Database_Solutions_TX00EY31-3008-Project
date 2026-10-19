@@ -70,7 +70,7 @@ Before you can run the application you must install:
 
 
 ## 4. Configuration
-The database connection is configured in the project in `src\main\resources\application.yaml`.
+The database connection is configured in the project in **`src\main\resources\application.yaml`**.
 
 The application.yaml should look like below:
 ```yaml
