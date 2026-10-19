@@ -6,6 +6,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
 
 import fi.metropolia.arazm.demo.dto.Customer.CustomerPageResponse;
+import fi.metropolia.arazm.demo.dto.Customer.CustomerRequest;
 import fi.metropolia.arazm.demo.entity.Customer;
 import fi.metropolia.arazm.demo.entity.Orders;
 import fi.metropolia.arazm.demo.mapper.CustomerMapper;
@@ -97,24 +98,29 @@ public class CustomerService {
     }
 
 
-    /**
-     * Creates a customer and its orders.
-     * @param customer the customer data
-     * @return the created Customer with its orders.
-     */
-    public CustomerDTO createCustomer(Customer customer){
-
-        if(customer.getOrders() != null){
-            for(Orders order : customer.getOrders()){
-                order.setCustomer(customer);
-            }
-        }
-
-        Customer savedCustomer = customerRepository.save(customer);
-
-        return CustomerMapper.toDto(savedCustomer);
-        
+    @Transactional
+    public CustomerDTO createCustomer(CustomerRequest req) {
+        Customer customer = new Customer();
+        apply(customer, req);
+        return CustomerMapper.toDto(customerRepository.save(customer));
     }
+
+    @Transactional
+    public CustomerDTO updateCustomer(Integer id, CustomerRequest req) {
+        Customer customer = customerRepository.findById(id)
+                .orElseThrow(() -> new ResponseStatusException(
+                        HttpStatus.NOT_FOUND, "Customer not found with an ID " + id));
+        apply(customer, req);
+        return CustomerMapper.toDto(customer);
+    }
+
+    private void apply(Customer c, CustomerRequest req) {
+        c.setFirstName(req.firstName());
+        c.setLastName(req.lastName());
+        c.setEmail(req.email());
+        c.setPhone(req.phone());
+    }
+
 
 
     /**

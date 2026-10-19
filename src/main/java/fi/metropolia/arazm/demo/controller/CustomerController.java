@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -16,8 +17,13 @@ import fi.metropolia.arazm.demo.dto.Customer.CustomerAllDTO;
 import fi.metropolia.arazm.demo.dto.Customer.CustomerContactDTO;
 import fi.metropolia.arazm.demo.dto.Customer.CustomerDTO;
 import fi.metropolia.arazm.demo.dto.Customer.CustomerPageResponse;
+import fi.metropolia.arazm.demo.dto.Customer.CustomerRequest;
 import fi.metropolia.arazm.demo.entity.Customer;
 import fi.metropolia.arazm.demo.service.CustomerService;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.Positive;
 
 @RestController 
 @RequestMapping("/api/customer")
@@ -44,8 +50,8 @@ public class CustomerController {
      */
     @GetMapping("/paged")
     public CustomerPageResponse getPagedCustomers(
-            @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "20") int size){
+            @RequestParam(defaultValue = "0") @Min(0) int page,
+            @RequestParam(defaultValue = "20") @Min(1) @Max(100) int size){
 
         return service.getPagedCustomers(page, size);
     }
@@ -58,7 +64,7 @@ public class CustomerController {
      * Retrieves a specific customer with given id.
      */
     @GetMapping("/{id}")
-    public ResponseEntity<CustomerDTO> getCustomerById(@PathVariable Integer id){
+    public ResponseEntity<CustomerDTO> getCustomerById(@PathVariable @Positive Integer id){
         return ResponseEntity.ok(service.getCustomerById(id));
     }
 
@@ -71,16 +77,23 @@ public class CustomerController {
         return service.getCustomerContacts();
     }
 
-    // 
     /**
      * POST /api/customers
      * 
      * Create new customer with their orders.
      */
     @PostMapping
-    public CustomerDTO createCustomer(@RequestBody Customer customer){
-        return service.createCustomer(customer);
+    public CustomerDTO createCustomer(@Valid @RequestBody CustomerRequest req){
+        return service.createCustomer(req);
     }
+
+    @PutMapping("/{id}")
+    public CustomerDTO updateCustomer(@PathVariable @Positive Integer id,
+                                    @Valid @RequestBody CustomerRequest req) {
+        return service.updateCustomer(id, req);
+    }
+
+
 
     
 }
