@@ -66,3 +66,30 @@ Before you can run the application you must install:
 3. Ensure that the database schema and required tables exist.
 4. Configure the database connection in your project as described in the next section.
 
+
+
+## 4. Configuration
+The database connection is configured in the project in `src\main\resources\application.yaml`.
+
+The application.yaml should look like below:
+```yaml
+spring:
+  jpa:
+    properties:
+      hibernate:
+        show_sql: true
+        format_sql: true
+        ddl-auto: validate
+
+  application:
+    name: demo
+
+  datasource:
+    url: jdbc:mariadb://localhost:3306/${DB_NAME}
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
+```
+
+Set the `DB_NAME` to match your database name as well as `DB_USERNAME` and `DB_PASSWORD` to match your credentials.
+
+You should preferably use a dedicated database account for the application rather than the MariaDB root account.
