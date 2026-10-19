@@ -11,23 +11,28 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotBlank;
 
 @Entity
 @Table(name = "customeraddresses")
 public class CustomerAddresses {
-    @Id 
+    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    @NotBlank
     @Column(name = "street_address")
     private String streetAddress;
 
+    @NotBlank
     @Column(name = "postal_code")
     private String postalCode;
 
+    @NotBlank
     @Column(name = "city")
     private String city;
 
+    @NotBlank
     @Column(name = "country")
     private String country;
 
@@ -36,9 +41,10 @@ public class CustomerAddresses {
     @JsonIgnoreProperties("addresses")
     private Customer customer;
 
-    public CustomerAddresses(){}
+    public CustomerAddresses() {
+    }
 
-    public CustomerAddresses(String streetAddress, String postalCode, String city, String country, Customer customer){
+    public CustomerAddresses(String streetAddress, String postalCode, String city, String country, Customer customer) {
         this.streetAddress = streetAddress;
         this.postalCode = postalCode;
         this.city = city;
@@ -93,5 +99,5 @@ public class CustomerAddresses {
     public void setCountry(String country) {
         this.country = country;
     }
-    
+
 }
