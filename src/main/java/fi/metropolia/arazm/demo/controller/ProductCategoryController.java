@@ -75,6 +75,29 @@ public class ProductCategoryController {
         return toDto(saved);
     }
 
+
+    
+    /**
+     * PUT /api/categories/{id}
+     * Updates an existing product category.
+     */
+    @PutMapping("/{id}")
+    public ResponseEntity<ProductCategoryDTO> update(
+            @PathVariable Integer id,
+            @RequestBody ProductCategory updatedCategory) {
+
+        return categoryRepository.findById(id)
+                .map(category -> {
+                    category.setName(updatedCategory.getName());
+                    category.setDescription(updatedCategory.getDescription());
+
+                    ProductCategory saved = categoryRepository.save(category);
+                    return ResponseEntity.ok(toDto(saved));
+                })
+                .orElse(ResponseEntity.notFound().build());
+    }
+
+
     /**
      * DELETE /api/categories/{id}
      * Deletes a product category by its ID.

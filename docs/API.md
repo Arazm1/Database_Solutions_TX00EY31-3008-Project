@@ -8,7 +8,9 @@
 4. [Suppliers](#suppliers)
 5. [Orders](#orders)
 6. [Addresses](#addresses)
-7. [Orders](#orders)
+7. [Categories](#categories)
+
+
 8. [Error Responses](#error-responses)
 
 ---
@@ -555,6 +557,92 @@ The order status is initially set to `NEW`.
 
 
 ---
+
+
+## 7. Categories
+## Categories
+
+### GET All Categories
+
+**Endpoint:**
+`GET /api/categories`
+
+**Request Body:** None.
+
+---
+
+### GET Category by ID
+
+**Endpoint:**
+* `GET /api/categories/{id}`
+
+**Request Body:** None.
+
+**Responses:**
+- `200 OK` — category found.
+- `404 Not Found` — category does not exist.
+
+---
+
+### POST Create Category
+
+**Endpoint:**
+* `POST /api/categories`
+
+**Content-Type:**
+`application/json`
+
+**Request Body:**
+```json
+{
+  "name": "Electronics",
+  "description": "Electronic devices and accessories"
+}
+```
+
+**Fields:**
+- `name` — category name.
+- `description` — category description.
+
+---
+
+### PUT Update Category
+
+**Endpoint:**
+`PUT /api/categories/{id}`
+
+**Example:**
+`PUT /api/categories/3`
+
+**Content-Type:**
+`application/json`
+
+**Request Body:**
+```json
+{
+  "name": "Updated Electronics",
+  "description": "Updated category description"
+}
+```
+
+**Responses:**
+- `200 OK` — category updated successfully.
+- `404 Not Found` — category does not exist.
+
+---
+
+### DELETE Category
+
+**Endpoint:**
+* `DELETE /api/categories/{id}`
+
+**Request Body:** None.
+
+**Responses:**
+- `204 No Content` — category deleted successfully.
+- `404 Not Found` — category does not exist.
+
+
 
 ## 6. Error Responses
 
