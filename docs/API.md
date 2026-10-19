@@ -39,7 +39,7 @@ http://localhost:8080
 
 Example:
 ```bat
-GET /api/customer/optimized?page=1&size=20
+GET /api/products/paged?page=1&size=20
 ```
 
 ### GET Product by ID
