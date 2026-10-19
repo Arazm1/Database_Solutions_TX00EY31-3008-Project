@@ -6,8 +6,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import fi.metropolia.arazm.demo.archive.TiliRepository;
 import fi.metropolia.arazm.demo.entity.Person;
-import fi.metropolia.arazm.demo.repository.TiliRepository;
 
 @RestController 
 @RequestMapping("/tili")

@@ -4,8 +4,8 @@ import org.springframework.stereotype.Component;
 
 import fi.metropolia.arazm.demo.dto.ProductCategoryDTO;
 import fi.metropolia.arazm.demo.dto.SupplierAddressDTO;
-import fi.metropolia.arazm.demo.dto.SupplierDTO;
 import fi.metropolia.arazm.demo.dto.Product.ProductDTO;
+import fi.metropolia.arazm.demo.dto.Supplier.SupplierDTO;
 import fi.metropolia.arazm.demo.entity.Product;
 import fi.metropolia.arazm.demo.entity.ProductCategory;
 import fi.metropolia.arazm.demo.entity.Supplier;

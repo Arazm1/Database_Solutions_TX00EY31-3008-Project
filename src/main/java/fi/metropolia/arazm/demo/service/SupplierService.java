@@ -8,10 +8,15 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
 
 import fi.metropolia.arazm.demo.dto.SupplierAddressDTO;
-import fi.metropolia.arazm.demo.dto.SupplierDTO;
+import fi.metropolia.arazm.demo.dto.Supplier.SupplierDTO;
 import fi.metropolia.arazm.demo.entity.Supplier;
 import fi.metropolia.arazm.demo.entity.SupplierAddress;
 import fi.metropolia.arazm.demo.repository.SupplierRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+
+
 
 @Service
 public class SupplierService {
@@ -35,6 +40,26 @@ public class SupplierService {
                             .stream()
                             .map(this::toSupplierDTO)
                             .toList();
+    }
+
+    public fi.metropolia.arazm.demo.dto.Supplier.SupplierPageResponse getPagedResponse(int page, int size){
+        Pageable pageable = PageRequest.of(page, size);
+
+        Page<Supplier> supplierPage = repository.findAll(pageable);
+
+        List<SupplierDTO> suppliers = supplierPage.getContent()
+                                            .stream()
+                                            .map(this::toSupplierDTO)
+                                            .toList();
+
+        
+        return new fi.metropolia.arazm.demo.dto.Supplier.SupplierPageResponse(
+            suppliers,
+            supplierPage.getNumber(),
+            supplierPage.getSize(),
+            supplierPage.getTotalElements(),
+            supplierPage.getTotalPages()
+        );
     }
 
 
