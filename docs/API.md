@@ -121,8 +121,8 @@ None.
 `GET /api/customer/paged`
 
 **Query Parameters:**
-- `page` — page number, minimum `0`, default `0`
-- `size` — page size, `1–100`, default `20`
+- `page` - page number, minimum `0`, default `0`
+- `size` - page size, `1–100`, default `20`
 
 **Example:**
 `GET /api/customer/paged?page=0&size=20`
@@ -138,7 +138,7 @@ None.
 `GET /api/customer/{id}`
 
 **Path Parameter:**
-- `id` — customer ID, must be positive
+- `id` - customer ID, must be positive
 
 **Example:**
 `GET /api/customer/1`
@@ -187,7 +187,7 @@ None.
 `PUT /api/customer/{id}`
 
 **Path Parameter:**
-- `id` — customer ID, must be positive
+- `id` - customer ID, must be positive
 
 **Example:**
 `PUT /api/customer/1`
@@ -204,6 +204,21 @@ None.
   "phone": "+358 40 987 6543"
 }
 ```
+
+
+### DELETE Customer
+
+**Endpoint:**
+`DELETE /api/customer/{id}`
+
+**Path Parameter:**
+- `id` - customer ID, must be positive
+
+**Example:**
+`DELETE /api/customer/1`
+
+**Request Body:**
+None.
 
 
 
