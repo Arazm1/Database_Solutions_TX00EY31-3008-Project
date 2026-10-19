@@ -4,6 +4,7 @@ import java.util.List;
 
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -90,6 +91,18 @@ public class CustomerController {
     public CustomerDTO updateCustomer(@PathVariable @Positive Integer id,
                                     @Valid @RequestBody CustomerRequest req) {
         return service.updateCustomer(id, req);
+    }
+
+    
+    /**
+     * DELETE /api/customer/{id}
+     * 
+     * Deletes a customer by ID.
+     */
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteCustomer(@PathVariable @Positive Integer id){
+        service.deleteCustomer(id);
+        return ResponseEntity.noContent().build();
     }
 
 

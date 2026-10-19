@@ -113,6 +113,18 @@ public class CustomerService {
         return CustomerMapper.toDto(customer);
     }
 
+
+    @Transactional
+    public void deleteCustomer(Integer id){
+        if(!customerRepository.existsById(id)){
+            throw new ResponseStatusException(
+                HttpStatus.NOT_FOUND, "Customer not found with an ID " + id
+            );
+        }
+        customerRepository.deleteById(id);
+    }
+
+
     private void apply(Customer c, CustomerRequest req) {
         c.setFirstName(req.firstName());
         c.setLastName(req.lastName());
