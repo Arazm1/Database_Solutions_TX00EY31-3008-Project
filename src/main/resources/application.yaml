@@ -11,5 +11,5 @@ spring:
 
   datasource:
     url: jdbc:mariadb://localhost:3306/tkr_harjoitus_1
-    username: root
-    password: D0ntW4nn4D0This
+    username: tkr_app_admin
+    password: Salasana123
