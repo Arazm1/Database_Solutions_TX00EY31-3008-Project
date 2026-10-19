@@ -159,6 +159,7 @@ The API uses HTTP methods such as GET, POST, PUT, and DELETE, depending on the o
 
 The API endpoints are more thorougly explained below in this documentation.
 
+---
 
 ## 9. Database Features
 
@@ -266,3 +267,18 @@ The application connects to MariaDB using dedicated service accounts rather than
 | **`tkr_read_user`** | Read-Only | `SELECT` | Restricted read access for reporting or read-only services |
 | **`tkr_app_user`** | Read/Write | `SELECT`, `INSERT`, `UPDATE` | Standard application user for handling business operations without structural DB changes |
 | **`tkr_app_admin`** | Full Control | `ALL PRIVILEGES` | Administrative account for database setup, migrations, and schema modifications |
+
+
+
+---
+
+## 10. Error Handling
+The application uses a centralized GlobalExceptionHandler annotated with @RestControllerAdvice.
+
+It handles selected exceptions and returns structured HTTP error responses.
+
+Examples include:
+
+* **400 Bad Request** - invalid request body or enum value
+* **404 Not Found** - requested resource does not exist when the service throws a corresponding ResponseStatusException
+* **409 Conflict** - optimistic locking conflict
