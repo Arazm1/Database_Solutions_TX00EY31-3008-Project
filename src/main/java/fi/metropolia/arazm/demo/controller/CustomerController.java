@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import fi.metropolia.arazm.demo.dto.Customer.CustomerAllDTO;
+import fi.metropolia.arazm.demo.dto.Customer.CustomerContactDTO;
 import fi.metropolia.arazm.demo.dto.Customer.CustomerDTO;
 import fi.metropolia.arazm.demo.dto.Customer.CustomerPageResponse;
 import fi.metropolia.arazm.demo.entity.Customer;
@@ -59,6 +60,15 @@ public class CustomerController {
     @GetMapping("/{id}")
     public ResponseEntity<CustomerDTO> getCustomerById(@PathVariable Integer id){
         return ResponseEntity.ok(service.getCustomerById(id));
+    }
+
+    /**
+     * GET /api/customer/contacts
+     * @return customer contacts from View 'nakyma2'
+     */
+    @GetMapping("/contacts")
+    public List<CustomerContactDTO> getCustomerContacts(){
+        return service.getCustomerContacts();
     }
 
     // 

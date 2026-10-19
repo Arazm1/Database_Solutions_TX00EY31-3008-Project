@@ -10,6 +10,7 @@ import fi.metropolia.arazm.demo.entity.Customer;
 import fi.metropolia.arazm.demo.entity.Orders;
 import fi.metropolia.arazm.demo.mapper.CustomerMapper;
 import fi.metropolia.arazm.demo.dto.Customer.CustomerAllDTO;
+import fi.metropolia.arazm.demo.dto.Customer.CustomerContactDTO;
 import fi.metropolia.arazm.demo.dto.Customer.CustomerDTO;
 import fi.metropolia.arazm.demo.repository.CustomerRepository;
 
@@ -113,6 +114,22 @@ public class CustomerService {
 
         return CustomerMapper.toDto(savedCustomer);
         
+    }
+
+
+    /**
+     * Retrives customer contacts from View nakyma2
+     */
+    public List<CustomerContactDTO> getCustomerContacts(){
+        return customerRepository.findCustomerContacts()
+                                    .stream()
+                                    .map(contact -> new CustomerContactDTO(
+                                        contact.getCustomerId(),
+                                        contact.getLastName(),
+                                        contact.getFirstName(),
+                                        contact.getEmail(),
+                                        contact.getCountry()
+                                    )).toList();
     }
     
 }
