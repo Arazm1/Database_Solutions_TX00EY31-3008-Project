@@ -2,8 +2,6 @@ package fi.metropolia.arazm.demo.repository;
 
 import fi.metropolia.arazm.demo.entity.Product;
 
-import java.util.List;
-
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
