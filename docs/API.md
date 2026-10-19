@@ -23,7 +23,7 @@ http://localhost:8080
 
 ---
 
-## 2. ## Products
+## 2. Products
 
 ### GET All Products
 **Endpoint:**
