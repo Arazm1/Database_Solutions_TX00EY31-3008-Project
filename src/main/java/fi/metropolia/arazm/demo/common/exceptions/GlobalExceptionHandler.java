@@ -1,4 +1,4 @@
-package fi.metropolia.arazm.demo.exceptions;
+package fi.metropolia.arazm.demo.common.exceptions;
 
 import java.util.Map;
 

@@ -1,4 +1,4 @@
-package fi.metropolia.arazm.demo.enums;
+package fi.metropolia.arazm.demo.common.enums;
 
 public enum OrderStatus {
     NEW,

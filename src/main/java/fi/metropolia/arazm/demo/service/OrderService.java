@@ -9,13 +9,13 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
 
 import fi.metropolia.arazm.demo.dto.Order.OrderRequest;
+import fi.metropolia.arazm.demo.common.enums.OrderStatus;
 import fi.metropolia.arazm.demo.dto.Order.OrderDto;
 import fi.metropolia.arazm.demo.dto.Order.OrderPageDTO;
 import fi.metropolia.arazm.demo.entity.Customer;
 import fi.metropolia.arazm.demo.entity.CustomerAddresses;
 import fi.metropolia.arazm.demo.entity.Orders;
 import fi.metropolia.arazm.demo.entity.Product;
-import fi.metropolia.arazm.demo.enums.OrderStatus;
 import fi.metropolia.arazm.demo.mapper.OrderMapper;
 import fi.metropolia.arazm.demo.repository.CustomerAddressesRepository;
 import fi.metropolia.arazm.demo.repository.CustomerRepository;
