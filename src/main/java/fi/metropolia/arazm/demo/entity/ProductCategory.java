@@ -12,16 +12,18 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotBlank;
 
-@Entity 
+@Entity
 @Table(name = "productcategories")
-@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 public class ProductCategory {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    @NotBlank
     @Column(name = "name")
     private String name;
 
@@ -29,17 +31,18 @@ public class ProductCategory {
     private String description;
 
     @OneToMany(mappedBy = "productCategory")
-    @JsonIgnoreProperties({"productCategory", "hibernateLazyInitializer", "handler"})
+    @JsonIgnoreProperties({ "productCategory", "hibernateLazyInitializer", "handler" })
     private List<Product> products = new ArrayList<>();
 
-    public ProductCategory(){}
+    public ProductCategory() {
+    }
 
-    public ProductCategory(String name, String description){
+    public ProductCategory(String name, String description) {
         this.name = name;
         this.description = description;
     }
 
-    public Integer getId(){
+    public Integer getId() {
         return this.id;
     }
 
@@ -54,7 +57,6 @@ public class ProductCategory {
     public List<Product> getProducts() {
         return this.products;
     }
-
 
     public void setId(Integer id) {
         this.id = id;
@@ -72,5 +74,4 @@ public class ProductCategory {
         this.products = products;
     }
 
-    
 }
