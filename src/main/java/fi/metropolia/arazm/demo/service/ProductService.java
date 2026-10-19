@@ -93,7 +93,7 @@ public class ProductService {
     @Transactional
     public void delete(Integer id) {
         if (!productRepository.existsById(id)) {
-            new ResponseStatusException(HttpStatus.NOT_FOUND, "Product not found with an ID " + id);
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Product not found with an ID " + id);
         }
         productRepository.deleteById(id);
     }
