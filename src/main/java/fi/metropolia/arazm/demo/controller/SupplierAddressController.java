@@ -5,6 +5,10 @@ import fi.metropolia.arazm.demo.entity.SupplierAddress;
 import fi.metropolia.arazm.demo.repository.SupplierAddressRepository;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Positive;
+import fi.metropolia.arazm.demo.entity.Supplier;
+import fi.metropolia.arazm.demo.repository.SupplierRepository;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.server.ResponseStatusException;
 
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.http.ResponseEntity;
@@ -17,9 +21,13 @@ import java.util.List;
 public class SupplierAddressController {
 
     private final SupplierAddressRepository addressRepository;
+    private final SupplierRepository supplierRepository;
 
-    public SupplierAddressController(SupplierAddressRepository addressRepository) {
+    public SupplierAddressController(
+            SupplierAddressRepository addressRepository,
+            SupplierRepository supplierRepository) {
         this.addressRepository = addressRepository;
+        this.supplierRepository = supplierRepository;
     }
 
     @GetMapping
@@ -39,13 +47,19 @@ public class SupplierAddressController {
     @PostMapping
     @Transactional
     public SupplierAddress create(@Valid @RequestBody SupplierAddressRequest request) {
-        
+
+        Supplier supplier = supplierRepository.findById(request.supplierId())
+                .orElseThrow(() -> new ResponseStatusException(
+                        HttpStatus.NOT_FOUND,
+                        "Supplier not found: " + request.supplierId()));
+
         SupplierAddress address = new SupplierAddress();
         address.setStreetAddress(request.streetAddress());
         address.setPostalCode(request.postalCode());
         address.setCity(request.city());
         address.setCountry(request.country());
-        
+        address.setSupplier(supplier);
+
         return addressRepository.save(address);
     }
 
