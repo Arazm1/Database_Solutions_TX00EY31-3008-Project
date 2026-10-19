@@ -27,23 +27,28 @@ http://localhost:8080
 
 ### GET All Products
 **Endpoint:**
-`GET /api/products`
+* `GET /api/products`
 
 ### GET Products with Pagination
 **Endpoint:**
-`GET /api/products/paged`
+* `GET /api/products/paged`
 
 **Query Parameters:**
 - `page`
 - `size`
 
+Example:
+```bat
+GET /api/customer/optimized?page=1&size=20
+```
+
 ### GET Product by ID
 **Endpoint:**
-`GET /api/products/{id}`
+* `GET /api/products/{id}`
 
 ### POST Create Product
 **Endpoint:**
-`POST /api/products`
+* `POST /api/products`
 
 Content-Type:
 `application/json`
@@ -63,11 +68,11 @@ Requested Body:
 
 ### PUT Update Product
 **Endpoint:**
-`PUT /api/products/{id}`
+* `PUT /api/products/{id}`
 
 ### DELETE Product
 **Endpoint:**
-`DELETE /api/products/{id}`
+* `DELETE /api/products/{id}`
 
 
 ### GET Product by Category
