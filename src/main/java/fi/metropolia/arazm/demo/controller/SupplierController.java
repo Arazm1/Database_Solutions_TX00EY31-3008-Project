@@ -2,7 +2,6 @@ package fi.metropolia.arazm.demo.controller;
 
 import fi.metropolia.arazm.demo.dto.SupplierDTO;
 import fi.metropolia.arazm.demo.entity.Supplier;
-import fi.metropolia.arazm.demo.repository.SupplierRepository;
 import fi.metropolia.arazm.demo.service.SupplierService;
 
 import org.springframework.http.ResponseEntity;
