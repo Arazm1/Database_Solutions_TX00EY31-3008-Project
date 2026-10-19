@@ -63,7 +63,7 @@ Before you can run the application you must install:
 **Database Setup**
 1. Start the MariaDB server
 2. Import the project database
-    * [Link](tobereleased)
+    * [Database Structure Script](./sql/database_structure.sql)
 3. Ensure that the database schema and required tables exist.
 4. Configure the database connection in your project as described in the next section.
 
