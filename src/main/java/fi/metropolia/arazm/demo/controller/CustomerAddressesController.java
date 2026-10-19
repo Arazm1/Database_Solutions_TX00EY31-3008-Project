@@ -1,6 +1,6 @@
 package fi.metropolia.arazm.demo.controller;
 
-import fi.metropolia.arazm.demo.dto.address.AddressDTO;
+import fi.metropolia.arazm.demo.dto.ddress.AddressDTO;
 import fi.metropolia.arazm.demo.entity.CustomerAddresses;
 import fi.metropolia.arazm.demo.repository.CustomerAddressesRepository;
 import org.springframework.http.ResponseEntity;

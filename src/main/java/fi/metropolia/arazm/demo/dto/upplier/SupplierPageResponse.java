@@ -1,4 +1,4 @@
-package fi.metropolia.arazm.demo.dto.supplier;
+package fi.metropolia.arazm.demo.dto.upplier;
 
 import java.util.List;
 

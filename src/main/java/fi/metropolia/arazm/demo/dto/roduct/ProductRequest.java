@@ -1,4 +1,4 @@
-package fi.metropolia.arazm.demo.dto.product;
+package fi.metropolia.arazm.demo.dto.roduct;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
