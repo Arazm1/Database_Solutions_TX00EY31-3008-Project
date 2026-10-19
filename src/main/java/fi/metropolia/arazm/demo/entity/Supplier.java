@@ -1,6 +1,5 @@
 package fi.metropolia.arazm.demo.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -32,7 +31,6 @@ public class Supplier {
     private String email;
 
     @OneToOne(mappedBy = "supplier", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JsonIgnoreProperties("supplier")
     private SupplierAddress supplierAddress;
 
     public Supplier(){}

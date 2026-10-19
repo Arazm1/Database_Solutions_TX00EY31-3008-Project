@@ -1,7 +1,5 @@
 package fi.metropolia.arazm.demo.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -22,7 +20,6 @@ public class SupplierAddress {
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "supplier_id")
-    @JsonIgnoreProperties("supplierAddress")
     private Supplier supplier;
 
     @Column(name = "street_address")

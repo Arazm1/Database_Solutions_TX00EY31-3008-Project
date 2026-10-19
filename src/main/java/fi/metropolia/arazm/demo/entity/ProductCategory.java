@@ -3,8 +3,6 @@ package fi.metropolia.arazm.demo.entity;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -16,7 +14,6 @@ import jakarta.validation.constraints.NotBlank;
 
 @Entity
 @Table(name = "productcategories")
-@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 public class ProductCategory {
 
     @Id
@@ -31,7 +28,6 @@ public class ProductCategory {
     private String description;
 
     @OneToMany(mappedBy = "productCategory")
-    @JsonIgnoreProperties({ "productCategory", "hibernateLazyInitializer", "handler" })
     private List<Product> products = new ArrayList<>();
 
     public ProductCategory() {
