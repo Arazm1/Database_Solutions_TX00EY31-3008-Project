@@ -196,4 +196,73 @@ By applying page-based limits (translated to SQL `LIMIT` and `OFFSET` clauses), 
 
 
 
+
 ### Database Views
+The database contains view `nakyma2`.
+
+The view combines customer information with customer address information to provide a reusable and less exposing query result.
+
+The view can control which columns are exposed to a database user and they do not automatically store a separate copy of the underlying data.
+
+
+
+### Triggers and Price History
+
+The database contains an AFTER UPDATE trigger named trg_price_change on the products table.
+
+When a product's price changes, the trigger inserts a history record into price_log containing:
+
+* Product ID
+* Old price
+* New price
+* Change timestamp
+
+The trigger was tested by updating a product price through the REST API using Postman and verifying that the change appeared in price_log.
+
+
+
+### Transactions and Concurrency
+
+Spring's `@Transactional` annotation is used to manage database operations that should execute within a transaction.
+
+Transactions help ensure that related operations succeed or fail together. The order creation process validates the referenced customer, address, and products before saving the order.
+
+The Orders entity also uses JPA's `@Version` field for optimistic locking. This helps detect conflicting updates when multiple transactions modify the same order.
+
+
+
+### Validation
+
+Request DTOs use Jakarta Bean Validation annotations to check incoming data.
+
+Examples include:
+* @NotNull — requires a value
+* @NotBlank — requires non-blank text
+* @Positive — requires a positive number
+* @PositiveOrZero — allows zero or a positive number
+* @Size — restricts the length of text
+
+Controllers use @Valid to trigger validation of request bodies.
+
+
+
+### Temporal Data
+
+The price_log table preserves a history of product price changes.
+
+The **trg_price_change** trigger records the previous and new prices along with the timestamp of each change. This allows earlier prices to be inspected after a product has been updated.
+
+This is a trigger-based history table rather than a MariaDB system-versioned temporal table.
+
+
+
+### Database Security & User Roles
+
+The application connects to MariaDB using dedicated service accounts rather than the administrative `root` user, adhering to the principle of least privilege. Permissions are scoped strictly to the `tkr_harjoitus_1` database.
+
+
+| User Account | Access Level | Granted Permissions | Purpose |
+| :--- | :--- | :--- | :--- |
+| **`tkr_read_user`** | Read-Only | `SELECT` | Restricted read access for reporting or read-only services |
+| **`tkr_app_user`** | Read/Write | `SELECT`, `INSERT`, `UPDATE` | Standard application user for handling business operations without structural DB changes |
+| **`tkr_app_admin`** | Full Control | `ALL PRIVILEGES` | Administrative account for database setup, migrations, and schema modifications |
