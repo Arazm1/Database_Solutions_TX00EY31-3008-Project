@@ -1,4 +1,4 @@
-package fi.metropolia.arazm.demo.dto.Supplier;
+package fi.metropolia.arazm.demo.dto.supplier;
 
 import fi.metropolia.arazm.demo.dto.supplieraddresses.SupplierAddressDTO;
 

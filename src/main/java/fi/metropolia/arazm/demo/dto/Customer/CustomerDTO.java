@@ -1,8 +1,8 @@
-package fi.metropolia.arazm.demo.dto.Customer;
+package fi.metropolia.arazm.demo.dto.customer;
 
 import java.util.List;
 
-import fi.metropolia.arazm.demo.dto.Order.OrderDto;
+import fi.metropolia.arazm.demo.dto.order.OrderDto;
 
 public record CustomerDTO(
     Integer id,

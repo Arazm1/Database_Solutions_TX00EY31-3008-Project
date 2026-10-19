@@ -8,10 +8,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
 
-import fi.metropolia.arazm.demo.dto.Order.OrderRequest;
 import fi.metropolia.arazm.demo.common.enums.OrderStatus;
-import fi.metropolia.arazm.demo.dto.Order.OrderDto;
-import fi.metropolia.arazm.demo.dto.Order.OrderPageDTO;
+import fi.metropolia.arazm.demo.dto.order.OrderDto;
+import fi.metropolia.arazm.demo.dto.order.OrderPageDTO;
+import fi.metropolia.arazm.demo.dto.order.OrderRequest;
 import fi.metropolia.arazm.demo.entity.Customer;
 import fi.metropolia.arazm.demo.entity.CustomerAddresses;
 import fi.metropolia.arazm.demo.entity.Orders;

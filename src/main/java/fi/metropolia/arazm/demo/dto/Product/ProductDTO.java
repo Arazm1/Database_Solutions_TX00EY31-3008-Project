@@ -1,7 +1,7 @@
-package fi.metropolia.arazm.demo.dto.Product;
+package fi.metropolia.arazm.demo.dto.product;
 
-import fi.metropolia.arazm.demo.dto.ProductCategoryDTO;
-import fi.metropolia.arazm.demo.dto.Supplier.SupplierDTO;
+import fi.metropolia.arazm.demo.dto.category.ProductCategoryDTO;
+import fi.metropolia.arazm.demo.dto.supplier.SupplierDTO;
 
 public record ProductDTO(
     Integer id,

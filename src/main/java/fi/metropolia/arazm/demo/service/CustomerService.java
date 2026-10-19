@@ -5,13 +5,13 @@ import java.util.List;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
 
-import fi.metropolia.arazm.demo.dto.Customer.CustomerPageResponse;
-import fi.metropolia.arazm.demo.dto.Customer.CustomerRequest;
+import fi.metropolia.arazm.demo.dto.customer.CustomerAllDTO;
+import fi.metropolia.arazm.demo.dto.customer.CustomerContactDTO;
+import fi.metropolia.arazm.demo.dto.customer.CustomerDTO;
+import fi.metropolia.arazm.demo.dto.customer.CustomerPageResponse;
+import fi.metropolia.arazm.demo.dto.customer.CustomerRequest;
 import fi.metropolia.arazm.demo.entity.Customer;
 import fi.metropolia.arazm.demo.mapper.CustomerMapper;
-import fi.metropolia.arazm.demo.dto.Customer.CustomerAllDTO;
-import fi.metropolia.arazm.demo.dto.Customer.CustomerContactDTO;
-import fi.metropolia.arazm.demo.dto.Customer.CustomerDTO;
 import fi.metropolia.arazm.demo.repository.CustomerRepository;
 
 

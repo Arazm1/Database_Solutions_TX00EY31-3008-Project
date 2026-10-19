@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
 
-import fi.metropolia.arazm.demo.dto.Supplier.SupplierDTO;
+import fi.metropolia.arazm.demo.dto.supplier.SupplierDTO;
 import fi.metropolia.arazm.demo.dto.supplieraddresses.SupplierAddressDTO;
 import fi.metropolia.arazm.demo.entity.Supplier;
 import fi.metropolia.arazm.demo.entity.SupplierAddress;
@@ -42,7 +42,7 @@ public class SupplierService {
                             .toList();
     }
 
-    public fi.metropolia.arazm.demo.dto.Supplier.SupplierPageResponse getPagedResponse(int page, int size){
+    public fi.metropolia.arazm.demo.dto.supplier.SupplierPageResponse getPagedResponse(int page, int size){
         Pageable pageable = PageRequest.of(page, size);
 
         Page<Supplier> supplierPage = repository.findAll(pageable);
@@ -53,7 +53,7 @@ public class SupplierService {
                                             .toList();
 
         
-        return new fi.metropolia.arazm.demo.dto.Supplier.SupplierPageResponse(
+        return new fi.metropolia.arazm.demo.dto.supplier.SupplierPageResponse(
             suppliers,
             supplierPage.getNumber(),
             supplierPage.getSize(),

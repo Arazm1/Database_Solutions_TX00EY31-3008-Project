@@ -2,9 +2,9 @@ package fi.metropolia.arazm.demo.mapper;
 
 import org.springframework.stereotype.Component;
 
-import fi.metropolia.arazm.demo.dto.ProductCategoryDTO;
-import fi.metropolia.arazm.demo.dto.Product.ProductDTO;
-import fi.metropolia.arazm.demo.dto.Supplier.SupplierDTO;
+import fi.metropolia.arazm.demo.dto.category.ProductCategoryDTO;
+import fi.metropolia.arazm.demo.dto.product.ProductDTO;
+import fi.metropolia.arazm.demo.dto.supplier.SupplierDTO;
 import fi.metropolia.arazm.demo.dto.supplieraddresses.SupplierAddressDTO;
 import fi.metropolia.arazm.demo.entity.Product;
 import fi.metropolia.arazm.demo.entity.ProductCategory;

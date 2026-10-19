@@ -7,9 +7,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
 
-import fi.metropolia.arazm.demo.dto.Product.ProductDTO;
-import fi.metropolia.arazm.demo.dto.Product.ProductPageResponse;
-import fi.metropolia.arazm.demo.dto.Product.ProductRequest;
+import fi.metropolia.arazm.demo.dto.product.ProductDTO;
+import fi.metropolia.arazm.demo.dto.product.ProductPageResponse;
+import fi.metropolia.arazm.demo.dto.product.ProductRequest;
 import fi.metropolia.arazm.demo.entity.Product;
 import fi.metropolia.arazm.demo.entity.ProductCategory;
 import fi.metropolia.arazm.demo.entity.Supplier;

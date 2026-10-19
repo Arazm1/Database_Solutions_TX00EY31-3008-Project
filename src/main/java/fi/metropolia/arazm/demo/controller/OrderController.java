@@ -12,10 +12,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import fi.metropolia.arazm.demo.dto.Order.OrderDto;
-import fi.metropolia.arazm.demo.dto.Order.OrderPageDTO;
-import fi.metropolia.arazm.demo.dto.Order.OrderRequest;
-import fi.metropolia.arazm.demo.dto.Order.StatusUpdateRequest;
+import fi.metropolia.arazm.demo.dto.order.OrderDto;
+import fi.metropolia.arazm.demo.dto.order.OrderPageDTO;
+import fi.metropolia.arazm.demo.dto.order.OrderRequest;
+import fi.metropolia.arazm.demo.dto.order.StatusUpdateRequest;
 import fi.metropolia.arazm.demo.service.OrderService;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;

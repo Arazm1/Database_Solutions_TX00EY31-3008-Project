@@ -1,7 +1,7 @@
 package fi.metropolia.arazm.demo.controller;
 
-import fi.metropolia.arazm.demo.dto.Supplier.SupplierDTO;
-import fi.metropolia.arazm.demo.dto.Supplier.SupplierPageResponse;
+import fi.metropolia.arazm.demo.dto.supplier.SupplierDTO;
+import fi.metropolia.arazm.demo.dto.supplier.SupplierPageResponse;
 import fi.metropolia.arazm.demo.entity.Supplier;
 import fi.metropolia.arazm.demo.service.SupplierService;
 

@@ -5,9 +5,9 @@ import java.util.List;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
-import fi.metropolia.arazm.demo.dto.Product.ProductDTO;
-import fi.metropolia.arazm.demo.dto.Product.ProductPageResponse;
-import fi.metropolia.arazm.demo.dto.Product.ProductRequest;
+import fi.metropolia.arazm.demo.dto.product.ProductDTO;
+import fi.metropolia.arazm.demo.dto.product.ProductPageResponse;
+import fi.metropolia.arazm.demo.dto.product.ProductRequest;
 import fi.metropolia.arazm.demo.service.ProductService;
 import jakarta.validation.Valid;
 

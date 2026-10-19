@@ -1,6 +1,6 @@
 package fi.metropolia.arazm.demo.controller;
 
-import fi.metropolia.arazm.demo.dto.ProductCategoryDTO;
+import fi.metropolia.arazm.demo.dto.category.ProductCategoryDTO;
 import fi.metropolia.arazm.demo.entity.ProductCategory;
 import fi.metropolia.arazm.demo.repository.ProductCategoryRepository;
 import org.springframework.http.ResponseEntity;
