@@ -22,6 +22,7 @@ import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.Positive;
 
 import org.springframework.web.bind.annotation.RequestParam;
+import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/api/orders")
@@ -37,7 +38,7 @@ public class OrderController {
      * Retrieves all orders.
      */
     @GetMapping
-    public List<OrderDTO> getAllOrders(){
+    public List<OrderDTO> getAllOrders() {
         return service.getAllOrders();
     }
 
@@ -46,8 +47,8 @@ public class OrderController {
      */
     @GetMapping("/paged")
     public OrderPageDTO getPagedOrders(
-           @RequestParam(defaultValue = "0") @Min(0) int page,
-           @RequestParam(defaultValue = "20") @Min(1) @Max(100) int size) {
+            @RequestParam(defaultValue = "0") @Min(0) int page,
+            @RequestParam(defaultValue = "20") @Min(1) @Max(100) int size) {
 
         return service.getPagedOrders(page, size);
     }
@@ -64,7 +65,7 @@ public class OrderController {
      * Creates a new order.
      */
     @PostMapping
-    public OrderDTO create(@RequestBody OrderRequest req){
+    public OrderDTO create(@Valid @RequestBody OrderRequest req) {
         return service.createOrder(req);
     }
 
