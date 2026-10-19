@@ -80,24 +80,14 @@ public class SupplierService {
     @Transactional
     public SupplierDTO createSupplier(SupplierRequest request) {
         Supplier supplier = new Supplier();
+
         supplier.setName(request.companyName());
         supplier.setContactName(request.contactName());
-        supplier.setEmail(request.email());
         supplier.setPhone(request.phone());
+        supplier.setEmail(request.email());
 
-        if (request.supplierAddress() != null) {
-            SupplierAddress address = new SupplierAddress();
-            address.setStreetAddress(request.supplierAddress().streetAddress());
-            address.setPostalCode(request.supplierAddress().postalCode());
-            address.setCity(request.supplierAddress().city());
-            address.setCountry(request.supplierAddress().country());
-
-            // Attach address to supplier
-            supplier.setSupplierAddress(address);
-        }
-
-        Supplier saved = supplierRepository.save(supplier);
-        return toSupplierDTO(saved);
+        Supplier savedSupplier = repository.save(supplier);
+        return toSupplierDTO(savedSupplier);
     }
 
 

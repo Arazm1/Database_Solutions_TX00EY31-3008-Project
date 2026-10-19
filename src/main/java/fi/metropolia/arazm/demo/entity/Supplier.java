@@ -96,6 +96,10 @@ public class Supplier {
         this.email = email;
     }
 
+    public void setSupplierAddress(SupplierAddress address){
+        this.supplierAddress = address;
+    }
+
 
 
 
