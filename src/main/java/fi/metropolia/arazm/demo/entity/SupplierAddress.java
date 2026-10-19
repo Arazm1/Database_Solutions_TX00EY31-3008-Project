@@ -34,7 +34,8 @@ public class SupplierAddress {
     @Column(name = "country")
     private String country;
 
-    public SupplierAddress() {}
+    public SupplierAddress() {
+    }
 
     public SupplierAddress(Integer supplierId, String streetAddress, String postalCode, String city, String country) {
         this.streetAddress = streetAddress;
@@ -63,6 +64,9 @@ public class SupplierAddress {
         return this.country;
     }
 
+    public Supplier getSupplier() {
+        return this.supplier;
+    }
 
     public void setId(Integer id) {
         this.id = id;
@@ -82,5 +86,9 @@ public class SupplierAddress {
 
     public void setCountry(String country) {
         this.country = country;
+    }
+    
+    public void setSupplier(Supplier supplier) {
+        this.supplier = supplier;
     }
 }
