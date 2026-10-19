@@ -103,7 +103,7 @@ TODOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
 
 ---
 
-## 3. ## Customers
+## 3. Customers
 
 ### GET All Customers
 
