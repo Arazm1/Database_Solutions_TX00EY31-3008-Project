@@ -91,7 +91,7 @@ public class CustomerService {
     public CustomerDTO getCustomerById(Integer id){
 
         Customer customer = customerRepository.findById(id)
-                                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Customer not found with an id: " + id));
+                                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Customer not found with an ID " + id));
 
         return CustomerMapper.toDto(customer);
     }

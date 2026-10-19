@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.server.ResponseStatusException;
 
 import fi.metropolia.arazm.demo.dto.Order.CreateOrderRequest;
 import fi.metropolia.arazm.demo.dto.Order.OrderDto;
@@ -24,6 +25,7 @@ import fi.metropolia.arazm.demo.repository.ProductRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
 
 @Service
 public class OrderService {
@@ -51,8 +53,8 @@ public class OrderService {
     @Transactional(readOnly = true)
     public OrderDto getOrder(Integer id) {
         Orders order = ordersRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Order not found: " + id));
-        return mapper.toDto(order);   // mapped while the session is open
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Order not found with an ID " + id));
+        return mapper.toDto(order);
     }
 
 
@@ -86,15 +88,15 @@ public class OrderService {
     @Transactional
     public OrderDto createOrder(CreateOrderRequest req) {
         Customer customer = customerRepository.findById(req.customerId())
-                .orElseThrow(() -> new RuntimeException("Customer not found"));
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Customer not found " + req.customerId()));
         CustomerAddresses address = addressRepository.findById(req.shippingAddressId())
-                .orElseThrow(() -> new RuntimeException("Address not found"));
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Address not found " + req.shippingAddressId()));
 
         Orders order = new Orders(customer, LocalDateTime.now(), null, address, OrderStatus.NEW);
 
         for (CreateOrderRequest.Item item : req.items()) {
             Product product = productRepository.findById(item.productId())
-                    .orElseThrow(() -> new RuntimeException("Product not found: " + item.productId()));
+                    .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Product not found: " + item.productId()));
             order.addItem(product, item.quantity(), product.getPrice());
         }
 
@@ -106,8 +108,7 @@ public class OrderService {
     @Transactional
     public OrderDto updateOrderStatus(Integer id, OrderStatus status){
         Orders order = ordersRepository.findById(id)
-                                            .orElseThrow(() ->
-                                                new RuntimeException("Order not found: " + id));
+                                            .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Order not found with an ID " + id));
 
         order.setStatus(status);
         return mapper.toDto(order);

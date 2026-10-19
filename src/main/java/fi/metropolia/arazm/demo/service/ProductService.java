@@ -93,18 +93,14 @@ public class ProductService {
     @Transactional
     public void delete(Integer id) {
         if (!productRepository.existsById(id)) {
-            throw notFound("Product not found: " + id);
+            new ResponseStatusException(HttpStatus.NOT_FOUND, "Product not found with an ID " + id);
         }
         productRepository.deleteById(id);
     }
 
     private Product find(Integer id) {
         return productRepository.findById(id)
-                .orElseThrow(() -> notFound("Product not found: " + id));
-    }
-
-    private ResponseStatusException notFound(String message) {
-        return new ResponseStatusException(HttpStatus.NOT_FOUND, message);
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Product not found with an ID " + id));
     }
 
     private void apply(Product p, ProductRequest req) {
@@ -116,14 +112,14 @@ public class ProductService {
         ProductCategory category = null;
         if (req.getCategoryId() != null) {
             category = categoryRepository.findById(req.getCategoryId())
-                    .orElseThrow(() -> notFound("Category not found: " + req.getCategoryId()));
+                    .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Category not found with an ID " + req.getCategoryId()));
         }
         p.setCategory(category);
 
         Supplier supplier = null;
         if (req.getSupplierId() != null) {
             supplier = supplierRepository.findById(req.getSupplierId())
-                    .orElseThrow(() -> notFound("Supplier not found: " + req.getSupplierId()));
+                    .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Supplier not found with an ID " + req.getSupplierId()));
         }
         p.setSupplier(supplier);
     }
