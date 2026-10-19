@@ -163,10 +163,12 @@ The API endpoints are more thorougly explained below in this documentation.
 ## 9. Database Features
 
 ### Indexes and Query Optimization
+
+#### Indexes
 Database queries are optimized using indexes for foreign keys, frequently searched fields, and composite filtering/sorting needs. Query performance and index usage were verified using the MariaDB EXPLAIN command.
 
 
-Some examples of the indexes created in the database:
+Some examples of the indexes in the database:
 
 | Table | Index Name | Column(s) | Type / Purpose |
 | :--- | :--- | :--- | :--- |
@@ -176,3 +178,22 @@ Some examples of the indexes created in the database:
 | **customers** | `idx_sukunimi` | `(last_name)` | Search index for last name |
 | **customers** | `idx_customers_email` | `(email)` | Unique/search index for fast email lookup (+100k rows) |
 | **suppliers** | `idx_suppliers_name` | `(name)` | Search index for supplier name |
+
+
+#### Pagination for Query Optimization
+In addition to indexing, pagination is used to optimize database performance—especially for large tables such as `customers` (+100k rows). Fetching an entire dataset in a single request leads to high memory usage, heavy network overhead, and slow API response times. 
+
+By applying page-based limits (translated to SQL `LIMIT` and `OFFSET` clauses), the database only scans, retrieves, and serializes a small subset of records at a time, drastically reducing resource consumption and improving response times.
+
+Example of Customers Endpoint with Pagination
+
+* **Default (First 20 customers):**
+  `GET /api/customer/paged`
+* **Next page (20 customers):**
+  `GET /api/customer/paged?page=1&size=20`
+* **Custom page size (50 customers):**
+  `GET /api/customer/paged?page=0&size=50`
+
+
+
+### Database Views
