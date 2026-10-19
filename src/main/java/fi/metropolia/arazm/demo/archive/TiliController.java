@@ -1,4 +1,4 @@
-package fi.metropolia.arazm.demo.controller;
+package fi.metropolia.arazm.demo.archive;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -6,7 +6,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import fi.metropolia.arazm.demo.archive.TiliRepository;
 import fi.metropolia.arazm.demo.entity.Person;
 
 @RestController 

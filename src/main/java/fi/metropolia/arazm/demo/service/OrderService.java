@@ -14,6 +14,7 @@ import fi.metropolia.arazm.demo.entity.Customer;
 import fi.metropolia.arazm.demo.entity.CustomerAddresses;
 import fi.metropolia.arazm.demo.entity.Orders;
 import fi.metropolia.arazm.demo.entity.Product;
+import fi.metropolia.arazm.demo.enums.OrderStatus;
 import fi.metropolia.arazm.demo.mapper.OrderMapper;
 import fi.metropolia.arazm.demo.repository.CustomerAddressesRepository;
 import fi.metropolia.arazm.demo.repository.CustomerRepository;
@@ -89,7 +90,7 @@ public class OrderService {
         CustomerAddresses address = addressRepository.findById(req.shippingAddressId())
                 .orElseThrow(() -> new RuntimeException("Address not found"));
 
-        Orders order = new Orders(customer, LocalDateTime.now(), null, address, "NEW");
+        Orders order = new Orders(customer, LocalDateTime.now(), null, address, OrderStatus.NEW);
 
         for (CreateOrderRequest.Item item : req.items()) {
             Product product = productRepository.findById(item.productId())
@@ -98,6 +99,18 @@ public class OrderService {
         }
 
         return mapper.toDto(ordersRepository.save(order));
+    }
+
+
+
+    @Transactional
+    public OrderDto updateOrderStatus(Integer id, OrderStatus status){
+        Orders order = ordersRepository.findById(id)
+                                            .orElseThrow(() ->
+                                                new RuntimeException("Order not found: " + id));
+
+        order.setStatus(status);
+        return mapper.toDto(order);
     }
     
 }

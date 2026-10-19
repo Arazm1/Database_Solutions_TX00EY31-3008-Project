@@ -6,9 +6,12 @@ import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import fi.metropolia.arazm.demo.enums.OrderStatus;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -40,8 +43,9 @@ public class Orders {
     @Column(name = "created_at", nullable = false, updatable = false)
     private LocalDateTime createdAt;
     
+    @Enumerated(EnumType.STRING)
     @Column(name = "status")
-    private String status;
+    private OrderStatus status;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "shipping_address_id")
@@ -58,7 +62,7 @@ public class Orders {
 
     public Orders(){}
 
-    public Orders(Customer customer, LocalDateTime orderDate, LocalDateTime deliveryDate, CustomerAddresses shippingAddressID, String status) {
+    public Orders(Customer customer, LocalDateTime orderDate, LocalDateTime deliveryDate, CustomerAddresses shippingAddressID, OrderStatus status) {
         this.customer = customer;
         this.orderDate = orderDate;
         this.deliveryDate = deliveryDate;
@@ -91,7 +95,7 @@ public class Orders {
         return this.createdAt;
     }
 
-    public String getStatus() {
+    public OrderStatus getStatus() {
         return this.status;
     }
 
@@ -125,7 +129,7 @@ public class Orders {
         this.deliveryDate = deliveryDate;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(OrderStatus status) {
         this.status = status;
     }
 
