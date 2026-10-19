@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import fi.metropolia.arazm.demo.dto.order.OrderDto;
+import fi.metropolia.arazm.demo.dto.order.OrderDTO;
 import fi.metropolia.arazm.demo.dto.order.OrderPageDTO;
 import fi.metropolia.arazm.demo.dto.order.OrderRequest;
 import fi.metropolia.arazm.demo.dto.order.StatusUpdateRequest;
@@ -37,7 +37,7 @@ public class OrderController {
      * Retrieves all orders.
      */
     @GetMapping
-    public List<OrderDto> getAllOrders(){
+    public List<OrderDTO> getAllOrders(){
         return service.getAllOrders();
     }
 
@@ -56,7 +56,7 @@ public class OrderController {
      * Retrieves a single order by ID.
      */
     @GetMapping("/{id}")
-    public OrderDto one(@PathVariable @Positive Integer id) {
+    public OrderDTO one(@PathVariable @Positive Integer id) {
         return service.getOrder(id);
     }
 
@@ -64,7 +64,7 @@ public class OrderController {
      * Creates a new order.
      */
     @PostMapping
-    public OrderDto create(@RequestBody OrderRequest req){
+    public OrderDTO create(@RequestBody OrderRequest req){
         return service.createOrder(req);
     }
 
@@ -72,7 +72,7 @@ public class OrderController {
      * Updates the status of an order by ID.
      */
     @PutMapping("/{id}/status")
-    public OrderDto updateStatus(
+    public OrderDTO updateStatus(
             @PathVariable @Positive Integer id,
             @RequestBody StatusUpdateRequest request) {
         return service.updateOrderStatus(id, request.status());
@@ -82,7 +82,7 @@ public class OrderController {
      * Retrieves all orders belonging to a specific customer.
      */
     @GetMapping("/customer/{id}")
-    public List<OrderDto> getOrdersByCustomer(
+    public List<OrderDTO> getOrdersByCustomer(
             @PathVariable @Positive Integer id) {
         return service.getOrdersByCustomer(id);
     }

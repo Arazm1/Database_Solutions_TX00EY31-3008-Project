@@ -3,7 +3,7 @@ package fi.metropolia.arazm.demo.dto.order;
 import java.util.List;
 
 public record OrderPageDTO(
-    List<OrderDto> orders,
+    List<OrderDTO> orders,
     int page,
     int size,
     long totalElements,

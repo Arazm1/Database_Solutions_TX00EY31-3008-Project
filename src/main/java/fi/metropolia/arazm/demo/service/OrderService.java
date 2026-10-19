@@ -9,7 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
 
 import fi.metropolia.arazm.demo.common.enums.OrderStatus;
-import fi.metropolia.arazm.demo.dto.order.OrderDto;
+import fi.metropolia.arazm.demo.dto.order.OrderDTO;
 import fi.metropolia.arazm.demo.dto.order.OrderPageDTO;
 import fi.metropolia.arazm.demo.dto.order.OrderRequest;
 import fi.metropolia.arazm.demo.entity.Customer;
@@ -51,7 +51,7 @@ public class OrderService {
 
 
     @Transactional(readOnly = true)
-    public OrderDto getOrder(Integer id) {
+    public OrderDTO getOrder(Integer id) {
         Orders order = ordersRepository.findById(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Order not found with an ID " + id));
         return mapper.toDto(order);
@@ -64,7 +64,7 @@ public class OrderService {
 
         Page<Orders> orderPage = ordersRepository.findAll(pageable);
 
-        List<OrderDto> orders = orderPage.getContent()
+        List<OrderDTO> orders = orderPage.getContent()
                         .stream()
                         .map(mapper::toDto)
                         .toList();
@@ -81,12 +81,12 @@ public class OrderService {
 
 
     @Transactional(readOnly = true)
-    public List<OrderDto> getAllOrders() {
+    public List<OrderDTO> getAllOrders() {
         return ordersRepository.findAll().stream().map(mapper::toDto).toList();
     }
 
     @Transactional
-    public OrderDto createOrder(OrderRequest req) {
+    public OrderDTO createOrder(OrderRequest req) {
         Customer customer = customerRepository.findById(req.customerId())
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Customer not found " + req.customerId()));
         CustomerAddresses address = addressRepository.findById(req.shippingAddressId())
@@ -103,7 +103,7 @@ public class OrderService {
         return mapper.toDto(ordersRepository.save(order));
     }
 
-    public List<OrderDto> getOrdersByCustomer(Integer customerId) {
+    public List<OrderDTO> getOrdersByCustomer(Integer customerId) {
         if (!customerRepository.existsById(customerId)) {
             throw new ResponseStatusException(
                     HttpStatus.NOT_FOUND,
@@ -131,7 +131,7 @@ public class OrderService {
 
 
     @Transactional
-    public OrderDto updateOrderStatus(Integer id, OrderStatus status){
+    public OrderDTO updateOrderStatus(Integer id, OrderStatus status){
         Orders order = ordersRepository.findById(id)
                                             .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Order not found with an ID " + id));
 

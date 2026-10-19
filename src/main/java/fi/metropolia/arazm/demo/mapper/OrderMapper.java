@@ -4,20 +4,20 @@ import java.util.List;
 
 import org.springframework.stereotype.Component;
 
-import fi.metropolia.arazm.demo.dto.order.OrderDto;
-import fi.metropolia.arazm.demo.dto.order.OrderItemDto;
+import fi.metropolia.arazm.demo.dto.order.OrderDTO;
+import fi.metropolia.arazm.demo.dto.order.OrderItemDTO;
 import fi.metropolia.arazm.demo.entity.OrderItem;
 import fi.metropolia.arazm.demo.entity.Orders;
 
 @Component 
 public class OrderMapper {
 
-    public OrderDto toDto(Orders o){
-        List<OrderItemDto> items = o.getOrderItems().stream()
+    public OrderDTO toDto(Orders o){
+        List<OrderItemDTO> items = o.getOrderItems().stream()
                 .map(this::toDto)
                 .toList();
 
-        return new OrderDto(
+        return new OrderDTO(
             o.getId(),
             o.getStatus(),
             o.getOrderDate(),
@@ -28,8 +28,8 @@ public class OrderMapper {
         );
     }
 
-    public OrderItemDto toDto(OrderItem i) {
-        return new OrderItemDto(
+    public OrderItemDTO toDto(OrderItem i) {
+        return new OrderItemDTO(
                 i.getProduct().getId(),
                 i.getProduct().getName(),
                 i.getQuantity(),

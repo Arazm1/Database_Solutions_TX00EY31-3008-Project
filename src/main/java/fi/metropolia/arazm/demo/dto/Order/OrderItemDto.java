@@ -1,6 +1,6 @@
 package fi.metropolia.arazm.demo.dto.order;
 
-public record OrderItemDto(
+public record OrderItemDTO(
         Integer productId,
         String productName,
         Integer quantity,

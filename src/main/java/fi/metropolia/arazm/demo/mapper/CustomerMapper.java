@@ -3,8 +3,8 @@ package fi.metropolia.arazm.demo.mapper;
 import java.util.List;
 
 import fi.metropolia.arazm.demo.dto.customer.CustomerDTO;
-import fi.metropolia.arazm.demo.dto.order.OrderDto;
-import fi.metropolia.arazm.demo.dto.order.OrderItemDto;
+import fi.metropolia.arazm.demo.dto.order.OrderDTO;
+import fi.metropolia.arazm.demo.dto.order.OrderItemDTO;
 import fi.metropolia.arazm.demo.entity.Customer;
 import fi.metropolia.arazm.demo.entity.OrderItem;
 import fi.metropolia.arazm.demo.entity.Orders;
@@ -12,7 +12,7 @@ import fi.metropolia.arazm.demo.entity.Orders;
 public class CustomerMapper {
 
     public static CustomerDTO toDto(Customer customer){
-        List<OrderDto> orders = customer.getOrders() == null
+        List<OrderDTO> orders = customer.getOrders() == null
                 ? List.of()
                 : customer.getOrders().stream()
                     .map(CustomerMapper::toOrderDto)
@@ -29,14 +29,14 @@ public class CustomerMapper {
     }
 
 
-    private static OrderDto toOrderDto(Orders order){
-        List<OrderItemDto> items = order.getOrderItems() == null
+    private static OrderDTO toOrderDto(Orders order){
+        List<OrderItemDTO> items = order.getOrderItems() == null
                     ? List.of()
                     : order.getOrderItems().stream()
-                        .map(CustomerMapper::toOrderItemDto)
+                        .map(CustomerMapper::toOrderItemDTO)
                         .toList();
 
-        return new OrderDto(
+        return new OrderDTO(
             order.getId(),
             order.getStatus(),
             order.getOrderDate(),
@@ -48,8 +48,8 @@ public class CustomerMapper {
     }
 
 
-    private static OrderItemDto toOrderItemDto(OrderItem item) {
-        return new OrderItemDto(
+    private static OrderItemDTO toOrderItemDTO(OrderItem item) {
+        return new OrderItemDTO(
                 item.getProduct() == null ? null : item.getProduct().getId(),
                 item.getProduct() == null ? null : item.getProduct().getName(),
                 item.getQuantity(),
