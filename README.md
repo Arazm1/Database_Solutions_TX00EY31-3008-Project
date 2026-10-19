@@ -28,7 +28,6 @@ The project also demonstrates database features such as indexing, views, trigger
    - [Validation](#validation)
    - [Temporal Data](#temporal-data)
    - [Database Security](#database-security)
-   - [Database Monitoring](#database-monitoring)
 10. [Error Handling](#10-error-handling)
 11. [API Documentation and Testing](#11-api-documentation)
 12. [Summary](#12-summary)
@@ -291,6 +290,6 @@ Detailed documentation for all REST API endpoints, request/response formats, que
 
 This project demonstrates the development of a webshop REST API using Spring Boot, Spring Data JPA, and MariaDB.
 
-It combines REST endpoint design and layered application architecture with database indexing, views, trigger-based price history, transaction management, optimistic locking, request validation, exception handling, database permissions, and monitoring.
+It combines REST endpoint design and layered application architecture with database indexing, views, trigger-based price history, transaction management, optimistic locking, request validation, exception handling and database permissions.
 
 The API and database features were tested using Postman and MariaDB queries.
