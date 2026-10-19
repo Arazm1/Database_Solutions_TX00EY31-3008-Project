@@ -256,7 +256,7 @@ This is a trigger-based history table rather than a MariaDB system-versioned tem
 
 
 
-### Database Security & User Roles
+### Database Security
 
 The application connects to MariaDB using dedicated service accounts rather than the administrative `root` user, adhering to the principle of least privilege. Permissions are scoped strictly to the `tkr_harjoitus_1` database.
 
