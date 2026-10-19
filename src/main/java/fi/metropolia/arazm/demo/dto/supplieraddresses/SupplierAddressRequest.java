@@ -1,4 +1,4 @@
-package fi.metropolia.arazm.demo.dto.upplieraddresses;
+package fi.metropolia.arazm.demo.dto.supplieraddresses;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;

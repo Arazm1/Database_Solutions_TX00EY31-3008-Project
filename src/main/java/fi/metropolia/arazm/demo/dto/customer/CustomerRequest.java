@@ -1,4 +1,4 @@
-package fi.metropolia.arazm.demo.dto.ustomer;
+package fi.metropolia.arazm.demo.dto.customer;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
