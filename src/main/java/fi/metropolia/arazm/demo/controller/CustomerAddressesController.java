@@ -56,6 +56,7 @@ public class CustomerAddressesController {
      * Fetch all addresses for a specific customer
      */
     @GetMapping("/customer/{customerId}")
+    @Transactional(readOnly = true)
     public List<AddressDTO> getAddressesByCustomerId(@PathVariable Integer customerId) {
         return repository.findByCustomerId(customerId).stream()
                     .map(this::toDto)
@@ -67,16 +68,43 @@ public class CustomerAddressesController {
      * Create a new address
      */
     @PostMapping 
+    @Transactional
     public AddressDTO createAddress(@RequestBody CustomerAddresses address) {
         CustomerAddresses saved = repository.save(address);
         return toDto(saved);
     }
+
+    
+    /**
+     * PUT /api/addresses/{id}
+     * Update an existing address.
+     */
+    @PutMapping("/{id}")
+    @Transactional
+    public ResponseEntity<AddressDTO> updateAddress(
+            @PathVariable Integer id,
+            @RequestBody CustomerAddresses updatedAddress) {
+
+        return repository.findById(id)
+                .map(address -> {
+                    address.setStreetAddress(updatedAddress.getStreetAddress());
+                    address.setPostalCode(updatedAddress.getPostalCode());
+                    address.setCity(updatedAddress.getCity());
+                    address.setCountry(updatedAddress.getCountry());
+
+                    CustomerAddresses saved = repository.save(address);
+                    return ResponseEntity.ok(toDto(saved));
+                })
+                .orElse(ResponseEntity.notFound().build());
+    }
+
 
     /**
      * DELETE /api/addresses/{id}
      * Delete an address
      */
     @DeleteMapping("/{id}")
+    @Transactional
     public ResponseEntity<Void> deleteAddress(@PathVariable Integer id) {
         if (repository.existsById(id)) {
             repository.deleteById(id);
