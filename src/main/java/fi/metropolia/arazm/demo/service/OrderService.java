@@ -91,7 +91,13 @@ public class OrderService {
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Customer not found " + req.customerId()));
         CustomerAddresses address = addressRepository.findById(req.shippingAddressId())
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Address not found " + req.shippingAddressId()));
-
+        if (address.getCustomer() == null ||
+                !address.getCustomer().getId().equals(customer.getId())) {
+            throw new ResponseStatusException(
+                    HttpStatus.BAD_REQUEST,
+                    "Shipping address does not belong to the customer");
+        }        
+        
         Orders order = new Orders(customer, LocalDateTime.now(), null, address, OrderStatus.NEW);
 
         for (OrderRequest.Item item : req.items()) {
