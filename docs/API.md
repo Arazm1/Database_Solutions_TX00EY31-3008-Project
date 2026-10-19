@@ -281,7 +281,7 @@ None.
   "phone": "+358 40 123 4567",
   "email": "matti@example.com",
   "supplierAddress": {
-    "streetAddress": "Mannerheimintie 10",
+    "streetAddress": "Example Street 10",
     "postalCode": "00100",
     "city": "Helsinki",
     "country": "Finland"
@@ -324,7 +324,7 @@ None.
 
 ---
 
-## 5. ## Orders
+## 5. Orders
 
 ### GET All Orders
 
@@ -450,7 +450,7 @@ The order status is initially set to `NEW`.
 
 
 
-## Addresses
+## 6. Addresses
 
 ### GET All Addresses
 
@@ -499,7 +499,7 @@ The order status is initially set to `NEW`.
 **Request Body:**
 ```json
 {
-  "streetAddress": "Mannerheimintie 10",
+  "streetAddress": "Example Street Address",
   "postalCode": "00100",
   "city": "Helsinki",
   "country": "Finland",
@@ -515,6 +515,30 @@ The order status is initially set to `NEW`.
 - `city` — city.
 - `country` — country.
 - `customer.id` — ID of the customer associated with the address.
+
+---
+
+### PUT Update Address
+
+**Endpoint:**
+* `PUT /api/addresses/{id}`
+
+**Content-Type:**
+`application/json`
+
+**Request Body:**
+```json
+{
+  "streetAddress": "Example Street 100",
+  "postalCode": "00100",
+  "city": "Helsinki",
+  "country": "Finland"
+}
+```
+
+**Responses:**
+- `200 OK` — address updated successfully.
+- `404 Not Found` — address does not exist.
 
 ---
 
