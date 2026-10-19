@@ -8,17 +8,17 @@ import jakarta.validation.constraints.Size;
 
 public record SupplierRequest(
     @NotBlank(message = "Company name is required")
-    @Size(max = 100, message = "Company name must not exceed 100 characters")
+    @Size(max = 255, message = "Company name must not exceed 100 characters")
     String companyName,
 
-    @Size(max = 100, message = "Contact name must not exceed 100 characters")
+    @Size(max = 255, message = "Contact name must not exceed 100 characters")
     String contactName,
 
     @Email(message = "Must be a valid email address")
-    @Size(max = 100, message = "Email must not exceed 100 characters")
+    @Size(max = 255, message = "Email must not exceed 100 characters")
     String email,
 
-    @Size(max = 20, message = "Phone number must not exceed 20 characters")
+    @Size(max = 30, message = "Phone number must not exceed 20 characters")
     String phone,
 
     @Valid
