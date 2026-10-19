@@ -94,3 +94,85 @@ spring:
 Set the `DB_NAME` to match your database name as well as `DB_USERNAME` and `DB_PASSWORD` to match your credentials.
 
 You should preferably use a dedicated database account for the application rather than the MariaDB root account.
+
+
+
+## 5. Running the Application.
+
+1. Start MariaDB.
+2. Ensure that database credentials are configurated.
+3. Open the project and find the file: `src\main\java\fi\metropolia\arazm\demo\DemoApplication.java`
+4. You can start the application from your IDE.
+
+**Alternative method: using the terminal**
+1. Open the terminal in the project directory.
+2. Start the application using the Maven Wrapper:
+```bat
+./mvnw spring-boot:run
+```
+On Windows, use:
+```bat
+mvnw.cmd spring-boot:run
+```
+
+When the Application starts successfully, the REST API is available at the configured host and port. By default Spring Boot port is 8080. You can change these values in the `application.yaml` file.
+
+
+
+## 6. System Architecture
+
+**The application follows a layered architecture:**
+
+* **Controller layer:** Receives HTTP requests and returns HTTP responses.
+* **Service layer:** Contains application logic and transaction management.
+* **Repository layer:** Uses Spring Data JPA to access the database.
+* **Entity layer:** Represents database tables as Java objects.
+* **DTO layer:** Defines the data transferred through API requests and responses.
+* **Exception handling:** Provides centralized handling of supported application errors.
+
+An example of typical request flow:
+
+
+Typical request flow:
+`Client → Controller → Service → Repository → MariaDB`
+
+The response returns through the same layers to the client.
+
+
+
+## 7. Project Structure
+The application uses packages to separate responsibilities and make the project overall more clear. The main package is within `/demo` folder.
+
+
+
+## 8. API Overview
+The REST API exposes endpoints for working with webshop resources.
+
+The main resource areas include:
+* Products
+* Customers
+* Suppliers
+* Orders
+* Categories
+
+The API uses HTTP methods such as GET, POST, PUT, and DELETE, depending on the operations supported by each controller.
+
+The API endpoints are more thorougly explained below in this documentation.
+
+
+## 9. Database Features
+
+### Indexes and Query Optimization
+Database queries are optimized using indexes for foreign keys, frequently searched fields, and composite filtering/sorting needs. Query performance and index usage were verified using the MariaDB EXPLAIN command.
+
+
+Some examples of the indexes created in the database:
+
+| Table | Index Name | Column(s) | Type / Purpose |
+| :--- | :--- | :--- | :--- |
+| **orders** | `idx_orders_customer_date` | `(customer_id, order_date)` | Composite index for filtering by customer and sorting by date |
+| **products** | `fk_product_category` | `(category_id)` | Foreign key index for category lookup |
+| **products** | `idx_products_name` | `(name)` | Search index for product name |
+| **customers** | `idx_sukunimi` | `(last_name)` | Search index for last name |
+| **customers** | `idx_customers_email` | `(email)` | Unique/search index for fast email lookup (+100k rows) |
+| **suppliers** | `idx_suppliers_name` | `(name)` | Search index for supplier name |
