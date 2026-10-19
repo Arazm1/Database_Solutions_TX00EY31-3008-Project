@@ -1,6 +1,6 @@
 package fi.metropolia.arazm.demo.dto.Supplier;
 
-import fi.metropolia.arazm.demo.dto.SupplierAddressDTO;
+import fi.metropolia.arazm.demo.dto.supplieraddresses.SupplierAddressDTO;
 
 public record SupplierDTO(
     Integer id,

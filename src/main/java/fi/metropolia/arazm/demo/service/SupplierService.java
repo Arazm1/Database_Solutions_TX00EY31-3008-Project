@@ -7,8 +7,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
 
-import fi.metropolia.arazm.demo.dto.SupplierAddressDTO;
 import fi.metropolia.arazm.demo.dto.Supplier.SupplierDTO;
+import fi.metropolia.arazm.demo.dto.supplieraddresses.SupplierAddressDTO;
 import fi.metropolia.arazm.demo.entity.Supplier;
 import fi.metropolia.arazm.demo.entity.SupplierAddress;
 import fi.metropolia.arazm.demo.repository.SupplierRepository;
