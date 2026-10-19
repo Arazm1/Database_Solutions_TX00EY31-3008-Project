@@ -1,7 +1,10 @@
 package fi.metropolia.arazm.demo.controller;
 
+import fi.metropolia.arazm.demo.dto.SupplierDTO;
 import fi.metropolia.arazm.demo.entity.Supplier;
 import fi.metropolia.arazm.demo.repository.SupplierRepository;
+import fi.metropolia.arazm.demo.service.SupplierService;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -11,35 +14,47 @@ import java.util.List;
 @RequestMapping("/api/suppliers")
 public class SupplierController {
 
-    private final SupplierRepository supplierRepository;
+    private final SupplierService service;
 
-    public SupplierController(SupplierRepository supplierRepository) {
-        this.supplierRepository = supplierRepository;
+    public SupplierController(SupplierService service){
+        this.service = service;
     }
 
+    /**
+     * GET /api/suppliers
+     * @return 
+     */
     @GetMapping
-    public List<Supplier> getAll() {
-        return supplierRepository.findAll();
+    public List<SupplierDTO> getAllSuppliers() {
+        return service.getAllSuppliers();
     }
 
+
+    /**
+     * /api/suppliers/{id}
+     * @param id of the Supplier
+     * @return
+     */
     @GetMapping("/{id}")
-    public ResponseEntity<Supplier> getById(@PathVariable Integer id) {
-        return supplierRepository.findById(id)
-                .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
+    public ResponseEntity<SupplierDTO> getById(@PathVariable Integer id) {
+        return ResponseEntity.ok(service.getSupplierById(id));
     }
 
     @PostMapping
-    public Supplier create(@RequestBody Supplier supplier) {
-        return supplierRepository.save(supplier);
+    public SupplierDTO create(@RequestBody Supplier supplier) {
+        return service.createSupplier(supplier);
+    }
+
+    @PutMapping("/{id}")
+    public SupplierDTO update(
+            @PathVariable Integer id,
+            @RequestBody Supplier supplier) {
+        return service.updateSupplier(id, supplier);
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable Integer id) {
-        if (!supplierRepository.existsById(id)) {
-            return ResponseEntity.notFound().build();
-        }
-        supplierRepository.deleteById(id);
+        service.deleteSupplier(id);
         return ResponseEntity.noContent().build();
     }
 }
