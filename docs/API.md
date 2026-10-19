@@ -232,26 +232,103 @@ None.
 ### GET All Suppliers
 
 **Endpoint:**
+`GET /api/suppliers`
 
+**Request Body:** None.
+
+---
+
+### GET Suppliers with Pagination
+
+**Endpoint:**
+`GET /api/suppliers/paged`
+
+**Query Parameters:**
+- `page` — page number, default `0`
+- `size` — number of suppliers per page, default `20`
+
+**Example:**
+`GET /api/suppliers/paged?page=0&size=20`
+
+**Request Body:** None.
+
+---
 
 ### GET Supplier by ID
 
 **Endpoint:**
+`GET /api/suppliers/{id}`
 
+**Example:**
+`GET /api/suppliers/17`
+
+**Request Body:** None.
+
+---
 
 ### POST Create Supplier
 
 **Endpoint:**
+`POST /api/suppliers`
 
+**Content-Type:**
+`application/json`
+
+**Request Body:**
+```json
+{
+  "name": "Nordic Supplies Oy",
+  "contactName": "Matti Meikäläinen",
+  "phone": "+358 40 123 4567",
+  "email": "matti@example.com",
+  "supplierAddress": {
+    "streetAddress": "Mannerheimintie 10",
+    "postalCode": "00100",
+    "city": "Helsinki",
+    "country": "Finland"
+  }
+}
+```
+
+---
 
 ### PUT Update Supplier
 
 **Endpoint:**
+`PUT /api/suppliers/{id}`
 
+**Example:**
+`PUT /api/suppliers/17`
+
+**Content-Type:**
+`application/json`
+
+**Request Body:**
+```json
+{
+  "name": "Nordic Supplies Oy",
+  "contactName": "Anna Virtanen",
+  "phone": "+358 40 987 6543",
+  "email": "anna@example.com"
+}
+```
+
+**Note:** This endpoint updates the supplier's name, contact name, phone, and email. It does not update the supplier address in the current service implementation.
+
+---
 
 ### DELETE Supplier
 
 **Endpoint:**
+`DELETE /api/suppliers/{id}`
+
+**Example:**
+`DELETE /api/suppliers/17`
+
+**Request Body:** None.
+
+**Success Response:**
+- `204 No Content` — supplier deleted successfully.
 
 
 ---
