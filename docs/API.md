@@ -257,10 +257,7 @@ None.
 ### GET Supplier by ID
 
 **Endpoint:**
-`GET /api/suppliers/{id}`
-
-**Example:**
-`GET /api/suppliers/17`
+* `GET /api/suppliers/{id}`
 
 **Request Body:** None.
 
@@ -269,7 +266,7 @@ None.
 ### POST Create Supplier
 
 **Endpoint:**
-`POST /api/suppliers`
+* `POST /api/suppliers`
 
 **Content-Type:**
 `application/json`
@@ -295,10 +292,8 @@ None.
 ### PUT Update Supplier
 
 **Endpoint:**
-`PUT /api/suppliers/{id}`
+* `PUT /api/suppliers/{id}`
 
-**Example:**
-`PUT /api/suppliers/17`
 
 **Content-Type:**
 `application/json`
@@ -320,15 +315,9 @@ None.
 ### DELETE Supplier
 
 **Endpoint:**
-`DELETE /api/suppliers/{id}`
-
-**Example:**
-`DELETE /api/suppliers/17`
+* `DELETE /api/suppliers/{id}`
 
 **Request Body:** None.
-
-**Success Response:**
-- `204 No Content` — supplier deleted successfully.
 
 
 ---
