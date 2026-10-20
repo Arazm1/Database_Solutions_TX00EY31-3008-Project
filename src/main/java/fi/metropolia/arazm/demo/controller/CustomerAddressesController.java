@@ -3,6 +3,10 @@ package fi.metropolia.arazm.demo.controller;
 import fi.metropolia.arazm.demo.dto.address.AddressDTO;
 import fi.metropolia.arazm.demo.entity.CustomerAddresses;
 import fi.metropolia.arazm.demo.repository.CustomerAddressesRepository;
+import fi.metropolia.arazm.demo.entity.Customer;
+import fi.metropolia.arazm.demo.repository.CustomerRepository;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.server.ResponseStatusException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
@@ -17,9 +21,13 @@ import jakarta.validation.constraints.Positive;
 public class CustomerAddressesController {
 
     private final CustomerAddressesRepository repository;
+    private final CustomerRepository customerRepository;
 
-    public CustomerAddressesController(CustomerAddressesRepository repository) {
+    public CustomerAddressesController(
+            CustomerAddressesRepository repository,
+            CustomerRepository customerRepository) {
         this.repository = repository;
+        this.customerRepository = customerRepository;
     }
 
     private AddressDTO toDto(CustomerAddresses address) {
@@ -70,6 +78,20 @@ public class CustomerAddressesController {
     @PostMapping
     @Transactional
     public AddressDTO createAddress(@Valid @RequestBody CustomerAddresses address) {
+
+        if (address.getCustomer() == null || address.getCustomer().getId() == null) {
+            throw new ResponseStatusException(
+                    HttpStatus.BAD_REQUEST,
+                    "Customer ID is required");
+        }
+
+        Customer customer = customerRepository.findById(address.getCustomer().getId())
+                .orElseThrow(() -> new ResponseStatusException(
+                        HttpStatus.NOT_FOUND,
+                        "Customer not found: " + address.getCustomer().getId()));
+
+        address.setCustomer(customer);
+
         CustomerAddresses saved = repository.save(address);
         return toDto(saved);
     }
