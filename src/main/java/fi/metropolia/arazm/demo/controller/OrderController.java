@@ -75,7 +75,7 @@ public class OrderController {
     @PutMapping("/{id}/status")
     public OrderDTO updateStatus(
             @PathVariable @Positive Integer id,
-            @RequestBody StatusUpdateRequest request) {
+            @Valid @RequestBody StatusUpdateRequest request) {
         return service.updateOrderStatus(id, request.status());
     }
 
