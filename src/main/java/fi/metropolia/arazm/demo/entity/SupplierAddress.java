@@ -19,7 +19,7 @@ public class SupplierAddress {
     private Integer id;
 
     @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "supplier_id")
+    @JoinColumn(name = "supplier_id", nullable = false, unique = true)
     private Supplier supplier;
 
     @Column(name = "street_address")

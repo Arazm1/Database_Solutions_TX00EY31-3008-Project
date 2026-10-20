@@ -257,7 +257,7 @@ CREATE TABLE `supplieraddresses` (
   `city` varchar(100) NOT NULL,
   `country` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`id`),
-  KEY `fk_supplieraddress_supplier` (`supplier_id`),
+  UNIQUE KEY `uq_supplieraddress_supplier` (`supplier_id`),
   CONSTRAINT `fk_supplieraddress_supplier` FOREIGN KEY (`supplier_id`) REFERENCES `suppliers` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=101 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
