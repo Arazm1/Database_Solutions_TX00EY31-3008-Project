@@ -47,6 +47,11 @@ public class SupplierAddressController {
     @PostMapping
     @Transactional
     public SupplierAddress create(@Valid @RequestBody SupplierAddressRequest request) {
+        if (request.supplierId() == null) {
+            throw new ResponseStatusException(
+                HttpStatus.BAD_REQUEST,
+                "Supplier ID is required");
+        }
 
         Supplier supplier = supplierRepository.findById(request.supplierId())
                 .orElseThrow(() -> new ResponseStatusException(

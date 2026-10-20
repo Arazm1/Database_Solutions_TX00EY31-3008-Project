@@ -3,7 +3,6 @@ package fi.metropolia.arazm.demo.dto.supplieraddresses;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Positive;
 import jakarta.validation.constraints.Size;
-import jakarta.validation.constraints.NotNull;
 
 public record SupplierAddressRequest(
     @NotBlank(message = "Street address is required")
@@ -22,7 +21,6 @@ public record SupplierAddressRequest(
     @Size(max = 100, message = "Country must not exceed 100 characters")
     String country,
 
-    @NotNull(message = "Supplier ID is required")
     @Positive(message = "Supplier ID must be positive")
     Integer supplierId
     ) {}
