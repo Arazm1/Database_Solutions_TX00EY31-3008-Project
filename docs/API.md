@@ -736,13 +736,47 @@ The update changes the address fields while preserving the existing address ID a
 
 ## 9. Error Responses
 
-### 400 Bad Request
+The API uses a centralized exception handler (**GlobalExceptionHandler**) to guarantee consistent error formats across all endpoints. All error responses return a JSON object containing `status`, `error`, and `message` fields.
 
+### 400 Bad Request
+```json
+{
+  "status": "400",
+  "error": "Bad Request",
+  "message": "email: Must be a valid email address; phone: Phone number is required"
+}
+```
 
 ### 404 Not Found
+Returned when a requested resource does not exist in the database.
 
+```json
+{
+  "status": "404",
+  "error": "Not Found",
+  "message": "Customer not found with an ID 999"
+}
+```
 
 ### 409 Conflict
 
+Occurs when a request violates database unique constraints or optimistic locking.
+
+```json
+{
+  "status": "409",
+  "error": "Conflict",
+  "message": "The operation conflicts with existing data"
+}
+```
+
 
 ### 500 Internal Server Error
+Returned when an unexpected, unhandled server-side exception occurs.
+```json
+{
+  "status": "500",
+  "error": "Internal Server Error",
+  "message": "An unexpected error occurred on the server"
+}
+```
