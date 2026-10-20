@@ -1,11 +1,10 @@
 spring:
   jpa:
-    hibernate:
-      ddl-auto: validate
     properties:
       hibernate:
         show_sql: true
         format_sql: true
+        ddl-auto: validate
 
   application:
     name: demo

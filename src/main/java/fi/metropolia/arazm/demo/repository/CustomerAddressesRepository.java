@@ -8,4 +8,6 @@ import fi.metropolia.arazm.demo.entity.CustomerAddresses;
 
 public interface CustomerAddressesRepository extends JpaRepository<CustomerAddresses, Integer>{
     List<CustomerAddresses> findByCustomerId(Integer customerId);
+
+    void deleteByCustomerId(Integer customerId);
 }

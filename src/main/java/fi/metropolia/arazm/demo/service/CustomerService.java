@@ -12,6 +12,7 @@ import fi.metropolia.arazm.demo.dto.customer.CustomerPageResponse;
 import fi.metropolia.arazm.demo.dto.customer.CustomerRequest;
 import fi.metropolia.arazm.demo.entity.Customer;
 import fi.metropolia.arazm.demo.mapper.CustomerMapper;
+import fi.metropolia.arazm.demo.repository.CustomerAddressesRepository;
 import fi.metropolia.arazm.demo.repository.CustomerRepository;
 
 
@@ -26,9 +27,11 @@ public class CustomerService {
 
 
     private final CustomerRepository customerRepository;
+    private final CustomerAddressesRepository addressesRepository;
 
-    public CustomerService(CustomerRepository customerRepository){
+    public CustomerService(CustomerRepository customerRepository, CustomerAddressesRepository addressesRepository){
         this.customerRepository = customerRepository;
+        this.addressesRepository = addressesRepository;
     }
 
     /**
@@ -115,13 +118,16 @@ public class CustomerService {
 
 
     @Transactional
-    public void deleteCustomer(Integer id){
-        if(!customerRepository.existsById(id)){
-            throw new ResponseStatusException(
-                HttpStatus.NOT_FOUND, "Customer not found with an ID " + id
-            );
-        }
-        customerRepository.deleteById(id);
+    public void deleteCustomer(Integer id) {
+        Customer customer = customerRepository.findById(id)
+                .orElseThrow(() -> new ResponseStatusException(
+                        HttpStatus.NOT_FOUND,
+                        "Customer not found with an ID " + id
+                ));
+
+        addressesRepository.deleteByCustomerId(id);
+
+        customerRepository.delete(customer);
     }
 
 
