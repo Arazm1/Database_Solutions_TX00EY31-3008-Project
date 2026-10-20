@@ -401,7 +401,7 @@ Returns the orders belonging to the specified customer.
 - `shippingAddressId` — positive ID of an existing shipping address
 - `items` — non-empty list of order items
 - `productId` — positive ID of an existing product
-- `quantity` — positive quantity for each item (ensure `@Positive` validation is added to the DTO)
+- `quantity` — positive quantity for each item
 
 The order status is initially set to `NEW`.
 
@@ -550,7 +550,6 @@ The order status is initially set to `NEW`.
 
 
 ## 7. Categories
-## Categories
 
 ### GET All Categories
 
@@ -673,9 +672,7 @@ The order status is initially set to `NEW`.
   "postalCode": "211 22",
   "city": "Malmö",
   "country": "Sweden",
-  "supplier": {
-    "id": 17
-  }
+  "supplierId": 17
 }
 ```
 
@@ -684,7 +681,7 @@ The order status is initially set to `NEW`.
 - `postalCode` — postal code.
 - `city` — city.
 - `country` — country.
-- `supplier.id` — ID of the associated supplier.
+- `supplierId` — positive ID of the associated supplier.
 
 ---
 
